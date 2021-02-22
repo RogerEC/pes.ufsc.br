@@ -1,11 +1,8 @@
 <IfModule mod_rewrite.c>
-    <IfModule mod_negotiation.c>
-        Options +MultiViews -Indexes
-    </IfModule>
     RewriteEngine On
     # Redirecionamento permanente de HTTP para HTTPS
     #RewriteCond %{HTTP:X-Forwarded-Proto} !https
-    #RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301]
+    #RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
     #URL amigaveis
     RewriteBase /
     RewriteCond %{REQUEST_FILENAME} !-f

@@ -2,8 +2,8 @@
     // Arquivo que armazena todas as rotas do site
     use Router\Route as Route;
 
-    Route::get('/', function(){
-        echo "Página inicial";
-    });
+    Route::get('/', 'Controller@showHomePage');
 
-    Route::get(['set' => '/error/{code}', 'as' => 'pageError'], 'Controller@showPageError');
+    Route::get('/links', 'Controller@showLinksPage');
+
+    Route::get(['set' => '/error/{code}', 'as' => 'pageError'], 'Controller@showErrorPage');

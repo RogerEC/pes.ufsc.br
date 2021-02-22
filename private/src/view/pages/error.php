@@ -88,6 +88,8 @@
 <html lang="pt-BR">
     <head>
         <?php require_once(DIR_COMPONENTS . 'head.php');?>
+        <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
         <!-- Título da página -->
         <title>Erro <?php echo $code; ?></title>
     </head>

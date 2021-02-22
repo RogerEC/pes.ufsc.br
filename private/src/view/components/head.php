@@ -6,8 +6,6 @@
         <meta name="creator" content="Roger Eliodoro Condras">
         <meta name="publisher" content="Roger Eliodoro Condras">
         <meta name="rating" content="general">
-        <!-- Folhas de estilo CSS -->
-        <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
         <!-- Icone guia navegador -->
         <link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <!-- Folhas de estilo CSS -->
