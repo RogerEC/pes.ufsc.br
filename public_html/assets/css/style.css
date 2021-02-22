@@ -77,12 +77,12 @@ main{
 .bg-inscricao{
     background-color: #681323;
     color: #f2f2f2;
-    background-image: url("/assets/img/Backgound-Inscrição-SemFundo-2.png");
+    background-image: url("/assets/img/bg-desenhos.png");
     background-size: 100%;
 }
 
 .bg-links{
-    background: url("/assets/img/Backgound-Inscrição-SemFundo-2.png") repeat;
+    background: url("/assets/img/bg-desenhos.png") repeat;
     background-color: #681323 !important;
     background-size: 25%;
 }
@@ -92,7 +92,7 @@ main{
     color: #f2f2f2;
     background-repeat: no-repeat;
     background-position: center;
-    background-image: url("/img/Erro-Form.png");
+    background-image: url("/assets/img/Erro-Form.png");
     background-size: 100%;
 }
 
