@@ -14,7 +14,7 @@ class Page
     private $includeNavbar = true;
     private $main = [];
     private $scriptsCSS = ["bootstrap.min.css", "style.css"];
-    private $scriptsJS = ["jquery.min.js", "bootstrap.bundle.min.js"];
+    private $scriptsJS = ["libs/jquery.min.js", "libs/bootstrap.bundle.min.js"];
 
     public function setDescription($string)
     {
@@ -71,7 +71,7 @@ class Page
         $this->scriptsJS[] = $fileName;
     }
 
-    public function renderPage()
+    public function renderPage($parameters = null)
     {
         require_once DIR_PAGES . 'base.php';
     }

@@ -20,7 +20,6 @@
     </head>
     
     <body <?php if(!empty($this->classBody)) {echo "class=\"$this->classBody\"";}?>>
-
 <?php if($this->includeNavbar) {
         require_once DIR_COMPONENTS . 'navbar.php';
 } ?>    

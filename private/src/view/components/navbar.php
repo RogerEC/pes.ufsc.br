@@ -16,7 +16,7 @@
                                 <div class="dropdown-menu" aria-labelledby="menu_PS">
                                     <a class="dropdown-item" href="/processo-seletivo/alunos">Alunos</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="/processo-seletivo/gestao">Gestão</a>
+                                    <a class="dropdown-item" href="/processo-seletivo/gestores">Gestão</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="/processo-seletivo/professores">Professores</a>
                                 </div>

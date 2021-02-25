@@ -104,7 +104,7 @@
             <p><b><a href="/">Clique aqui</a></b> para voltar a página inicial.</p>
         </main><!--/Conteúdo da página-->
         <!--Javascript-->
-        <script src="/assets/js/jquery.min.js"></script>
-        <script src="/assets/js/bootstrap.bundle.min.js"></script>
+        <script src="/assets/js/libs/jquery.min.js"></script>
+        <script src="/assets/js/libs/bootstrap.bundle.min.js"></script>
     </body>
 </html>

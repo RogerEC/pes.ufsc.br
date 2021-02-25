@@ -89,6 +89,7 @@ class Request
         if(isset($this->data[$key])) {
             return $this->data[$key];
         }
+        return null;
     }
  
     // Retorna se o arquivo relativo a chave $key foi ou não definido
@@ -103,5 +104,6 @@ class Request
         if(isset($this->files[$key])) {
             return $this->files[$key];
         }
+        return null;
     }
 }
