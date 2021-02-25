@@ -14,7 +14,7 @@ class Page
     private $includeNavbar = true;
     private $main = [];
     private $scriptsCSS = ["bootstrap.min.css", "style.css"];
-    private $scriptsJS = ["libs/jquery.min.js", "libs/bootstrap.bundle.min.js"];
+    private $scriptsJS = ["libs/jquery.min.js", "libs/bootstrap.bundle.min.js", "pages/geral.js"];
 
     public function setDescription($string)
     {

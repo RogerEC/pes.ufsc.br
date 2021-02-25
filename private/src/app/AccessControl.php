@@ -22,6 +22,43 @@ class AccessControl
         }
     }
 
+    public function isUser() 
+    {
+        if(!$this->checkLogin()) {
+            $this->makeLogout();
+            return "401";
+        }
+        return ($this->getUserType() === 'G' || $this->getUserType() === 'GP'
+        || $this->getUserType() === 'A' || $this->getUserType() === 'P')? true:false;
+    }
+
+    public function getDepartment()
+    {
+        if(!$this->checkLogin()) {
+            $this->makeLogout();
+            return "401";
+        }
+        switch($this->getUserType()){
+            case 'G':
+            case 'GP':
+            case 'CG':
+                $departament = 'gestor';
+                break;
+            case 'A':
+            case 'CA':
+                $departament = 'aluno';
+                break;
+            case 'CP':
+            case 'P':
+                $departament = 'professor';
+                break;
+            default:
+                $departament = "401";
+                $this->makeLogout();
+        }
+        return $departament;
+    }
+
     public function getUserURL() {
         if ($this->checkLogin()) {
             switch($this->getUserType()){

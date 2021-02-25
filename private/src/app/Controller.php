@@ -230,8 +230,18 @@ class Controller
         $userType = strtolower($userType);
         if($userType === "aluno" || $userType === "gestor"
         || $userType === "professor") {
-            echo "Página de usuário tipo ".$userType;
-            echo "<br><a href='/'>Voltar ao início</a>";
+
+            $url = $this->accessControl->getUserURL();
+            
+            if ($url === "401") {
+                $this->showErrorPage($url);
+            } else if ($url === "/usuario/$userType") {
+                echo "Página de usuário tipo ".$userType;
+                echo "<br><a href='/'>Voltar ao início</a>";
+            } else {
+                header("Location: $url");
+                exit();
+            }
         }else{
             $this->showErrorPage("404");
         }
@@ -241,11 +251,21 @@ class Controller
     public function showUserSubPage($userType, $subPage)
     {
         $userType = strtolower($userType);
-        if($userType === "aluno" || $userType === "gestor"
+        if ($userType === "aluno" || $userType === "gestor"
         || $userType === "professor") {
-            echo "Sub página <b>". $subPage ."</b> do usuário tipo ".$userType;
-            echo "<br><a href='/'>Voltar ao início</a>";
-        }else{
+
+            $url = $this->accessControl->getUserURL();
+            
+            if ($url === "401") {
+                $this->showErrorPage($url);
+            } else if ($url === "/usuario/$userType") {
+                echo "Sub página <b>". $subPage ."</b> do usuário tipo ".$userType;
+                echo "<br><a href='/'>Voltar ao início</a>";
+            } else {
+                header("Location: $url");
+                exit();
+            }
+        } else {
             $this->showErrorPage("404");
         }
     }
@@ -256,8 +276,19 @@ class Controller
         $userType = strtolower($userType);
         if($userType === "aluno" || $userType === "gestor"
         || $userType === "professor") {
-            echo "Página de candidato tipo ".$userType;
-            echo "<br><a href='/'>Voltar ao início</a>";
+
+            $url = $this->accessControl->getUserURL();
+            
+            if ($url === "401") {
+                $this->showErrorPage($url);
+            } else if ($url === "/candidato/$userType") {
+                echo "Página de candidato tipo ".$userType;
+                echo "<br><a href='/'>Voltar ao início</a>";
+            } else {
+                header("Location: $url");
+                exit();
+            }
+            
         }else{
             $this->showErrorPage("404");
         }
@@ -269,8 +300,18 @@ class Controller
         $userType = strtolower($userType);
         if($userType === "aluno" || $userType === "gestor"
         || $userType === "professor") {
-            echo "Sub página <b>". $subPage ."</b> do candidato tipo ".$userType;
-            echo "<br><a href='/'>Voltar ao início</a>";
+
+            $url = $this->accessControl->getUserURL();
+            
+            if ($url === "401") {
+                $this->showErrorPage($url);
+            } else if ($url === "/candidato/$userType") {
+                echo "Sub página <b>". $subPage ."</b> do candidato tipo ".$userType;
+                echo "<br><a href='/'>Voltar ao início</a>";
+            } else {
+                header("Location: $url");
+                exit();
+            }
         }else{
             $this->showErrorPage("404");
         }

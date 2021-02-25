@@ -11,19 +11,19 @@
                         <ul class="nav navbar-nav ml-auto">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="/processo-seletivo" id="menu_PS" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Processos Seletivos
+                                    <spam id="LinkProcessosSeletivos">Processos Seletivos</spam>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="menu_PS">
                                     <a class="dropdown-item" href="/processo-seletivo/alunos">Alunos</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="/processo-seletivo/gestores">Gestão</a>
+                                    <a class="dropdown-item" href="/processo-seletivo/gestores">Gestores</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="/processo-seletivo/professores">Professores</a>
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="/sobre-nos" id="menu_SN" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Sobre nós
+                                    <spam id="LinkSobreNos">Sobre Nós</spam>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="menu_SN">
                                     <a class="dropdown-item" href="/sobre-nos/quem-somos">Quem Somos</a>
@@ -34,7 +34,7 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/hall-da-fama">Hall da fama</a>
+                                <a class="nav-link" href="/hall-da-fama">Hall da Fama</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/contato">Contato</a>
