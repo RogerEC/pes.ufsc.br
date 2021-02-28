@@ -19,4 +19,15 @@ class SelectDB
         $result = $this->database->selectDatabase($querySql);
         return $result;
     }
+
+    public function getUserLoginData($user)
+    {
+        $connection = $this->database->connect();
+        $query = $connection->prepare('SELECT `idUser`, `passwordHash`, `type`, `status` FROM `USER` WHERE `username` = :user LIMIT 1');
+        $query->bindValue(':user', $user, PDO::PARAM_STR);
+        $query->execute();
+        $result = $query->fetch(PDO::FETCH_OBJ);
+        $this->database->__destruct();
+        return $result;
+    }
 }

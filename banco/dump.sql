@@ -63,7 +63,18 @@ CREATE TABLE IF NOT EXISTS `USER` (
 
 LOCK TABLES `USER` WRITE;
 /*!40000 ALTER TABLE `USER` DISABLE KEYS */;
--- INSERT INTO `USER`(`ID_USER`, `CPF`, `EMAIL`, `PASSWORD_HASH`, `TYPE`, `STATUS`) VALUES(3, '11122243334', 'roger4@roger.com', 'hash', 'G', 9);
+-- Números de CPFs gerados aleatóriamente para teste no site: https://www.4devs.com.br/gerador_de_cpf
+-- Senha padrão utilizada para os testes do sistema: desenv
+INSERT INTO `USER` VALUES(1, '73585326943', 'rogerec@pes.ufsc.com.br', 'rogerec', '$2y$10$w8aZ5RCZmg27mbZjedMNee0L3YQTbQDtwLJB/alIlI25cyC1FnyKW', 'G', 1);
+INSERT INTO `USER` VALUES(2, '22273817959', 'aluno@pes.ufsc.com.br', 'aluno', '$2y$10$18ba/nOPOdJNOUyjOF6cRuDiFcowdyuGZbyAnZDY.1qMfBXbBaCti', 'A', 1);
+INSERT INTO `USER` VALUES(3, '06854823919', 'gestor@pes.ufsc.com.br', 'gestor', '$2y$10$7uU5kRQjONNPG5MeCMgVwe0pgqQrspKVx2uhhgmvgUB5Fj7vzWSv6', 'G', 1);
+INSERT INTO `USER` VALUES(4, '63007954975', 'professor@pes.ufsc.com.br', 'professor', '$2y$10$fPyXxOXe6J1jBi6yULlS0uQJsNzCfV8i.8g0/5fINfumcutGTv.Za', 'P', 1);
+INSERT INTO `USER` VALUES(5, '39143316905', 'gestor.professor@pes.ufsc.com.br', 'gestor.professor', '$2y$10$TpYXPRHct8m8iHD/FNusU..hCCRnocwdNa4K/TSt1ydJcDDSYfj/S', 'GP', 1);
+INSERT INTO `USER` VALUES(6, '67102128908', 'candidato.aluno@pes.ufsc.com.br', 'candidato.aluno', '$2y$10$vmzzW0AQnmE/3HsE/RvBV.kB/SAulR0ebdZ0T5jPcgKVIdS3Y0xfW', 'CA', 1);
+INSERT INTO `USER` VALUES(7, '10261221981', 'candidato.gestor@pes.ufsc.com.br', 'candidato.gestor', '$2y$10$Z9fCb8nDl/CNsvuvbeF2NOe56J7mhPpxShQz1sS4a0gCcRZKPKA8O', 'CG', 1);
+INSERT INTO `USER` VALUES(8, '34337198962', 'candidato.professor@pes.ufsc.com.br', 'candidato.professor', '$2y$10$vebVkAHfpjIwEh51cSXa2uYpLQRnD7IUM3HSnvKTtc44zAdBih3FG', 'CP', 1);
+INSERT INTO `USER` VALUES(9, '57953543923', 'user@pes.ufsc.com.br', 'user', '$2y$10$G4M/HKuYuqim9cyvrscieea4869o8QmKqtM62vcd6VMkn1DCSzWGu', 'A', 1);
+INSERT INTO `USER` VALUES(10, '77065100936', 'admin@pes.ufsc.com.br', 'admin', '$2y$10$NJn5b9sFWUQpV1rAn3KgzOjTROhJi3NiMU4TvsxiPdjtuN02mUDjS', 'G', 1);
 /*!40000 ALTER TABLE `USER` ENABLE KEYS */;
 UNLOCK TABLES;
 

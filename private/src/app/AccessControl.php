@@ -2,7 +2,7 @@
 // classe responsável por gerenciar o Login do Usuário
 namespace App;
 
-use Database\Database;
+use Database\SelectDB;
 
 class AccessControl
 {
@@ -105,15 +105,23 @@ class AccessControl
     // Verifica se os dados de login estão corretos e se sim, loga o usuário ou retorna erro.
     public function makeLogin($user, $password)
     {
-        if($user === 'rogerec'){
-            if($password === '213465'){
-                $_SESSION['userId'] = 1;
-                $_SESSION['userType'] = 'G';
+        $select = new SelectDB;
+        $userLoginData = $select->getUserLoginData($user);
+
+        if(!empty($userLoginData)) {
+            
+            if( password_verify($password, $userLoginData->passwordHash) ) {
+                
+                $_SESSION['userId'] = $userLoginData->idUser;
+                $_SESSION['userType'] = $userLoginData->type;
+                
                 return true;
-            }else{
+
+            } else {
                 $this->makeLogout();
                 return ["wrongPassword", $user];
             }
+            
         } else {
             $this->makeLogout();
             return ["userNotFound", $user];

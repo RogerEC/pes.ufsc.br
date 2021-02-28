@@ -40,7 +40,7 @@ class Controller
     {
         $select = new SelectDB;
         $links = $select->getActiveLinks();
-        
+
         $page = new Page;
         $page->setTitle("Links - Cursinho PES");
         $page->setRobots("index, follow");
@@ -88,7 +88,8 @@ class Controller
     public function checkLogin()
     {
         $request = new Request();
-        $user = trim($request->__get("user"));
+        
+        $user = strtolower(trim($request->__get("user")));
         $password = $request->__get("password");
         
         $statusLogin = $this->accessControl->makeLogin($user, $password);
