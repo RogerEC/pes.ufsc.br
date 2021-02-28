@@ -1,6 +1,6 @@
             <div class="banner">
                 <div class="bg-color-banner">
-                    <div class="text-center w-100" style="padding-top: 100px; padding-bottom: 40px">
+                    <div class="text-center w-100 font-pes" style="padding-top: 100px; padding-bottom: 40px">
                         <b>PROJETO EDUCAÇÃO SOLIDÁRIA</b>
                     </div>
                     <div class="w-100 text-center mb-0">

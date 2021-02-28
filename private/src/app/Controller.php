@@ -5,7 +5,7 @@ namespace App;
 
 use App\Page;
 use App\AccessControl;
-use Database\Database;
+use Database\SelectDB;
 use Router\Request;
 class Controller
 {
@@ -38,6 +38,9 @@ class Controller
     // exibe a página com resumo de links para redirecionamento
     public function showLinksPage()
     {
+        $select = new SelectDB;
+        $links = $select->getActiveLinks();
+        
         $page = new Page;
         $page->setTitle("Links - Cursinho PES");
         $page->setRobots("index, follow");
@@ -46,8 +49,9 @@ class Controller
         $page->setClassBody("bg-links");
         $page->notIncludeFooter();
         $page->notIndludeNavbar();
-        //$page->includeFileAtMain("pages/home.php");
-        $page->renderPage();
+        $page->includeScriptCSS("links.css");
+        $page->includeFileAtMain("pages/links.php");
+        $page->renderPage($links);
     }
 
     // exibe a página de login

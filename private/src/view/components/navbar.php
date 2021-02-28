@@ -1,7 +1,7 @@
         <header><!--Barra de navegação-->
             <nav class="navbar navbar-dark bg-bordo-pes fixed-top navbar-expand-lg">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/"><img src="/assets/img/logo300px.png" height="30" alt="Projeto Educação Solidária - Cursinho PES"><spam class="pl-2"><b>Cursinho PES</b></spam></a>
+                    <a class="navbar-brand" href="/"><img src="/assets/img/logo300px.png" height="30" alt="Projeto Educação Solidária - Cursinho PES"><spam class="pl-2 font-pes"><b>Cursinho PES</b></spam></a>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#opcoes_navbar" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>

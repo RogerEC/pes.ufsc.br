@@ -1,9 +1,10 @@
-<?php 
+<?php
+    // Arquivo de inicialização do sistema
     error_reporting(E_ALL);
     ini_set('display_errors', true);
     ini_set('default_charset', 'utf-8');
      
-    // Quando for utilizar o composer
+    // Quando for utilizar o composer na pasta private
     // require __DIR__ . '/vendor/autoload.php';
     require __DIR__ . '/src/Autoload.php';
      
