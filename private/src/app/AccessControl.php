@@ -1,8 +1,9 @@
 <?php 
-// classe responsável por gerenciar o Login do Usuário
+// classe responsável por gerenciar e controlar o acesso as páginas privadas que requerem login do usuário
 namespace App;
 
 use Database\SelectDB;
+use Database\UpdateDB;
 
 class AccessControl
 {
@@ -22,6 +23,7 @@ class AccessControl
         }
     }
 
+    // verifica se o usuário é usuário (true) ou candidato (false)
     public function isUser() 
     {
         if(!$this->checkLogin()) {
@@ -32,6 +34,7 @@ class AccessControl
         || $this->getUserType() === 'A' || $this->getUserType() === 'P')? true:false;
     }
 
+    // retorna o departamento do usuário dependendo do seu tipo
     public function getDepartment()
     {
         if(!$this->checkLogin()) {
@@ -59,6 +62,7 @@ class AccessControl
         return $departament;
     }
 
+    // retorna a URL para a página restrita inicial específica dependendo do tipo de usuário
     public function getUserURL() {
         if ($this->checkLogin()) {
             switch($this->getUserType()){
@@ -110,19 +114,30 @@ class AccessControl
 
         if(!empty($userLoginData)) {
             
+            // verifica se a senha informada corresponde ao hash armazenado
             if( password_verify($password, $userLoginData->passwordHash) ) {
                 
+                // verifica se é necessário atualizar o hash armazenado
+                if (password_needs_rehash($userLoginData->passwordHash, PASSWORD_DEFAULT)) {
+                    
+                    // se for necessário atualizar, gera o novo hash e realiza um update no banco
+                    $newHash = password_hash($password, PASSWORD_DEFAULT);
+                    $update = new UpdateDB;
+                    $update->updatePasswordHash($userLoginData->idUser, $newHash);
+                }
+                //efetua o login do usuário persistindo seu id e tipo
                 $_SESSION['userId'] = $userLoginData->idUser;
                 $_SESSION['userType'] = $userLoginData->type;
                 
                 return true;
 
             } else {
+                // caso a senha não corresponda ao hash, informa o erro de senha
                 $this->makeLogout();
                 return ["wrongPassword", $user];
             }
-            
         } else {
+            // caso a consulta do banco volte vazia, informa que o usuário não foi encontrado
             $this->makeLogout();
             return ["userNotFound", $user];
         }

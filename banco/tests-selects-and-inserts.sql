@@ -6,3 +6,6 @@ SELECT `name`, `url` FROM `LINKS` WHERE `status` = true AND (`permanentLink` = t
 
 -- Select dados de usuário
 SELECT `idUser`, `passwordHash`, `type`, `status` FROM `USER` WHERE `username` = 'rogerec' LIMIT 1;
+
+-- Update hash da senha de um usuário
+UPDATE `USER` SET `passwordHash` = "123" WHERE `idUser` = 1 LIMIT 1;
