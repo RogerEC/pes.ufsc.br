@@ -5,7 +5,7 @@ namespace App;
 class Page
 {
     private $description;
-    private $keywords;
+    private $keywords = "Curso pré-vestibular; UFSC; Cursinho PES; Projeto Educação Solidária";
     private $title;
     private $robots = "none";
     private $classBody;

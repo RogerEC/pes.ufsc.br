@@ -12,6 +12,8 @@
 
     Route::post('/login', 'Controller@checkLogin');
 
+    Route::get('/logout', 'Controller@makeLogout');
+
     Route::get('/area-restrita', 'Controller@showRestrictedAreaPage');
 
     Route::get('/recuperar-senha', 'Controller@showRecoverPasswordPage');

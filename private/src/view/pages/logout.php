@@ -1,0 +1,1 @@
+            <a href="/logout" class="btn btn-bordo" id="ButtonLogout">Logout</a>

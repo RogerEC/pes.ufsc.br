@@ -28,7 +28,6 @@ class Controller
         $page = new Page;
         $page->setTitle("Cursinho Projeto Educação Solidária");
         $page->setRobots("index, follow");
-        $page->setKeywords("Curso pré-vestibular; UFSC; Cursinho PES; Projeto Educação Solidária");
         $page->setDescription("Curso pré-vestibular social da Universidade Federal de Santa Catarina, Campus Araranguá, destinado a estudantes da rede pública de ensino da cidade de Araranguá, SC.");
         $page->setClassMain("h-100");
         $page->includeFileAtMain("pages/home.php");
@@ -44,7 +43,6 @@ class Controller
         $page = new Page;
         $page->setTitle("Links - Cursinho PES");
         $page->setRobots("index, follow");
-        $page->setKeywords("Curso pré-vestibular; UFSC; Cursinho PES; Projeto Educação Solidária");
         $page->setDescription("Links para as redes sociais do Cursinho Projeto Educação Solidária, curso pré vestibular social da UFSC Campus Araranguá-SC.");
         $page->setClassBody("bg-links");
         $page->notIncludeFooter();
@@ -61,7 +59,6 @@ class Controller
             $page = new Page;
             $page->setTitle("Login - Cursinho PES");
             //$page->setRobots("index, follow");
-            $page->setKeywords("Curso pré-vestibular; UFSC; Cursinho PES; Projeto Educação Solidária");
             $page->setDescription("Página de Login para a área restrita do site do Cursinho PES, curso pré-vestibular social da UFSC Campus Araranguá-SC.");
             $page->setClassBody("bg-links text-center");
             $page->includeScriptCSS("login.css");
@@ -108,6 +105,13 @@ class Controller
         } else {
             $this->showLoginPage($statusLogin);
         }
+    }
+
+    public function makeLogout()
+    {
+        $this->accessControl->makeLogout();
+        header("Location: /login");
+        exit();
     }
 
     //exibe a página para recuperação de senha
@@ -241,8 +245,15 @@ class Controller
             if ($url === "401") {
                 $this->showErrorPage($url);
             } else if ($url === "/usuario/$userType") {
-                echo "Página de usuário tipo ".$userType;
-                echo "<br><a href='/'>Voltar ao início</a>";
+                
+                $page = new Page;
+                $page->setTitle("Área do $userType");
+                //$page->setRobots('index, follow');
+                $page->setDescription("Área restrita a membros do Cursinho Projeto Educação Solidária. Perfil de acesso: $userType do Cursinho PES.");
+                $page->notIncludeFooter();
+                $page->notIndludeNavbar();
+                $page->includeFileAtMain('pages/logout.php');
+                $page->renderPage();
             } else {
                 header("Location: $url");
                 exit();
