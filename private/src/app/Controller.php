@@ -277,15 +277,17 @@ class Controller
     public function showUserPage($userType)
     {
         $userType = strtolower($userType);
+        // verifica se o tipo de usuário é válido
         if($userType === "aluno" || $userType === "gestor"
         || $userType === "professor") {
-
+            
+            // pega o link da área restrita específico para o usuário
             $url = $this->accessControl->getUserURL();
             
-            if ($url === "401") {
+            if ($url === "401") { // verifica se o usuário está acessando a página correta
                 $this->showErrorPage($url);
             } else if ($url === "/usuario/$userType") {
-                
+                // renderiza a página se o usuário está acessando a página correta
                 $page = new Page;
                 $page->setTitle("Área do $userType");
                 //$page->setRobots('index, follow');
@@ -303,10 +305,12 @@ class Controller
                 }
                 $page->renderPage();
             } else {
+                // redireciona o usuário para a página correta se ele estiver tentado acessar a página específica de um usuário de tipo diferente do dele
                 header("Location: $url");
                 exit();
             }
         }else{
+            // mostra erro 404 caso o usuário tente acessar uma página de um setor que não existe
             $this->showErrorPage("404");
         }
     }

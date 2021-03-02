@@ -4,6 +4,7 @@ namespace Database;
 use Database\Database;
 Use PDO;
 
+// classe responsável por reunir os métodos para realizar updates no banco de dados
 class UpdateDB 
 {
     private $database;
@@ -13,6 +14,7 @@ class UpdateDB
         $this->database = new Database;
     }
 
+    // efetua o update do hash da senha armazenado no banco com base no id do usuário
     public function updatePasswordHash($userId, $newHash)
     {
         $connection = $this->database->connect();

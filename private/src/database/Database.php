@@ -6,6 +6,7 @@ use PDOException;
 
 require_once DIR_PASSWORDS . 'database.php';
 
+// classe que gerencia a conexão com o banco de dados
 class Database
 {
     private $databaseType;
