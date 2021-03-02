@@ -100,8 +100,12 @@
                 if($descricao!=""){
                     echo "<p class='mt-4 mb-4'>$descricao</p>\n";
                 }
+                if($code === "401"){
+                    echo "<p class='mt-4 mb-4'><b><a href='/login'>Clique aqui</a></b> para realizar o login ou <b><a href='/'>clique aqui</a></b> para voltar a página inicial.</p>\n";
+                }else{
+                    echo "<p><b><a href='/'>Clique aqui</a></b> para voltar a página inicial.</p>\n";
+                }
             ?>
-            <p><b><a href="/">Clique aqui</a></b> para voltar a página inicial.</p>
         </main><!--/Conteúdo da página-->
         <!--Javascript-->
         <script src="/assets/js/libs/jquery.min.js"></script>

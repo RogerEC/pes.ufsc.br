@@ -63,11 +63,14 @@ main{
     color: beige;
 }
 
+.banner-font {
+    font-size: 60px;
+}
+
 .banner{
 	background: url('/assets/img/bg-banner.jpg') no-repeat center top;
     background-size: cover;
     color: #f2f2f2;
-    font-size: 60px;
     min-height: 87vh;
     position: relative;
     margin-top: -5px;
@@ -284,7 +287,7 @@ form .rodape{
     padding-top: 0.375rem !important;
 }
 
-#FormularioInscricao .coluna-barra-lateral{
+main .coluna-barra-lateral{
     width: 20%;
     height: 100%;
     position: fixed;
@@ -292,34 +295,34 @@ form .rodape{
     float: left;
 }
 
-#FormularioInscricao .coluna-formulario{
+main .coluna-formulario{
     width: 80%;
     height: 100%;
     overflow-y: scroll;
     float: right;
 }
 @media (max-width: 900px) {
-    #FormularioInscricao .coluna-barra-lateral{
+    main .coluna-barra-lateral{
         width: 25%;
     }
     
-    #FormularioInscricao .coluna-formulario{
+    main .coluna-formulario{
         width: 75%;
     }
 }
 
 @media (max-width: 768px) {
-    #FormularioInscricao .coluna-barra-lateral{
+    main .coluna-barra-lateral{
         width: 32%;
     }
     
-    #FormularioInscricao .coluna-formulario{
+    main .coluna-formulario{
         width: 68%;
     }
 }
 
 @media (max-width: 576px) {
-    #FormularioInscricao .coluna-formulario{
+    main .coluna-formulario{
         width: 100%;
         float: none;
     }

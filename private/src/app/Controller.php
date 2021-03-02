@@ -194,8 +194,48 @@ class Controller
     // exibe a página de contato
     public function showContactPage()
     {
-        echo "Página de contato";
-        echo "<br><a href='/'>Voltar ao início</a>";
+        $page = new Page;
+        $page->setTitle("Contato - Cursinho PES");
+        $page->setRobots("index, follow");
+        $page->setDescription("Formulário de contato por e-mail com o Cursinho PES.");
+        $page->setClassBody("bg-links");
+        //$page->notIncludeFooter();
+        //$page->notIndludeNavbar();
+        $page->includeScriptCSS("contact.css");
+        $page->includeFileAtMain("pages/contact.php");
+        $page->renderPage();
+    }
+
+    // envia o e-mail de contato com os dados recebidos do formulário de contato no site
+    public function sendContactEmail()
+    {
+        // apenas para os testes, é apresentada as informações coletadas do forms na tela.
+        $request = new Request;
+        // pega os dados do forms
+        $name = trim($request->__get('name'));
+        $senderEmail = trim($request->__get('email'));
+        $phone = trim($request->__get('phone'));
+        if(empty($request->__get('subject'))){
+            $error = "SubjectEmpty";
+        }else{
+            $subject = explode('|', trim($request->__get('subject')))[0];
+            $recipientEmail = explode('|', trim($request->__get('subject')))[1] . "@pes.ufsc.br";
+        }
+        $message = trim($request->__get('message'));
+
+        // imprime os dados na tela
+        echo "Dados recebidos do formulário de contato<br><br>";
+        echo "<b>Nome:</b> ".$name."<br>";
+        echo "<b>E-mail:</b> ".$senderEmail."<br>";
+        echo "<b>Telefone:</b> ".$phone."<br>";
+        if(isset($error)){
+            echo "Assunto vazio!<br>";
+        }else{
+            echo "<b>Assunto:</b> ".$subject."<br>";
+            echo "<b>Destinatário:</b> ".$recipientEmail."<br>";
+        }
+        echo "<b>Menssagem:</b> ".$message."<br><br>";
+        echo "<a href='/'>Voltar ao site</a>";
     }
 
     // exibe a página Hall da fama
@@ -252,7 +292,15 @@ class Controller
                 $page->setDescription("Área restrita a membros do Cursinho Projeto Educação Solidária. Perfil de acesso: $userType do Cursinho PES.");
                 $page->notIncludeFooter();
                 $page->notIndludeNavbar();
-                $page->includeFileAtMain('pages/logout.php');
+                $page->setClassMain("pt-0 w-100 h-100");
+                $page->includeScriptCSS("no-scrollbar.css");
+                if($userType === 'gestor'){
+                    $page->includeFileAtMain('pages/users/managers.php');
+                }else if($userType === 'professor'){
+                    $page->includeFileAtMain('pages/users/teachers.php');
+                }else{
+                    $page->includeFileAtMain('pages/users/students.php');
+                }
                 $page->renderPage();
             } else {
                 header("Location: $url");
@@ -298,8 +346,23 @@ class Controller
             if ($url === "401") {
                 $this->showErrorPage($url);
             } else if ($url === "/candidato/$userType") {
-                echo "Página de candidato tipo ".$userType;
-                echo "<br><a href='/'>Voltar ao início</a>";
+                
+                $page = new Page;
+                $page->setTitle("Área do candidato - $userType");
+                //$page->setRobots('index, follow');
+                $page->setDescription("Área restrita a candidatos a $userType do Cursinho Projeto Educação Solidária. Perfil de acesso: candidato $userType do Cursinho PES.");
+                $page->notIncludeFooter();
+                $page->notIndludeNavbar();
+                $page->setClassMain("pt-0 w-100 h-100");
+                $page->includeScriptCSS("no-scrollbar.css");
+                if($userType === 'gestor'){
+                    $page->includeFileAtMain('pages/candidates/managers.php');
+                }else if($userType === 'professor'){
+                    $page->includeFileAtMain('pages/candidates/teachers.php');
+                }else{
+                    $page->includeFileAtMain('pages/candidates/students.php');
+                }
+                $page->renderPage();
             } else {
                 header("Location: $url");
                 exit();

@@ -12,7 +12,7 @@
 
     Route::post('/login', 'Controller@checkLogin');
 
-    Route::get('/logout', 'Controller@makeLogout');
+    Route::post('/logout', 'Controller@makeLogout');
 
     Route::get('/area-restrita', 'Controller@showRestrictedAreaPage');
 
@@ -31,6 +31,8 @@
     Route::post('/processo-seletivo/{department}/inscricao', 'Controller@saveSubscriptionPS');
     
     Route::get('/contato', 'Controller@showContactPage');
+
+    Route::post('/contato', 'Controller@sendContactEmail');
     
     Route::get('/hall-da-fama', 'Controller@showHallOfFamePage');
 
