@@ -55,6 +55,12 @@ class AccessControl
             case 'P':
                 $departament = 'professor';
                 break;
+            case 'MH':
+                $departament = 'membro-honorario';
+                break;
+            case 'ADMIN':
+                $departament = 'administrador';
+                break;
             default:
                 $departament = "401";
                 $this->makeLogout();
@@ -75,6 +81,12 @@ class AccessControl
                     break;
                 case 'P':
                     $url = '/usuario/professor';
+                    break;
+                case 'MH':
+                    $url = '/usuario/membro-honorario';
+                    break;
+                case 'ADMIN':
+                    $url = '/area-51/administrador';
                     break;
                 case 'CA':
                     $url = '/candidato/aluno';

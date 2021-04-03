@@ -51,7 +51,7 @@ class Router
     }
 
     // Método que chama o despachante para atender a rota
-    protected function dispach($route, $params, $namespace = "App\\")
+    protected function dispach($route, $params, $namespace = "App\\Controller\\")
     { 
         return $this->dispacher->dispach($route->callback, $params, $namespace);
     }
@@ -70,7 +70,7 @@ class Router
     public function resolve($request){
      
         $route = $this->find($request->method(), $request->uri());
-     
+
         if($route) {
              
             $params = $route->callback['values'] ? $this->getValues($request->uri(), $route->callback['values']) : [];

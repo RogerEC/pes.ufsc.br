@@ -2,58 +2,52 @@
     // Arquivo que armazena todas as rotas do site
     use Router\Route as Route;
 
-    Route::get('/', 'Controller@showHomePage');
+    Route::get('/', 'PublicArea@showHomePage');
 
-    Route::get('/links', 'Controller@showLinksPage');
+    Route::get('/links', 'PublicArea@showLinksPage');
 
-    Route::get(['set' => '/error/{code}', 'as' => 'pageError'], 'Controller@showErrorPage');
+    Route::get(['set' => '/error/{code}', 'as' => 'pageError'], 'General@showErrorPage');
 
-    Route::get('/login', 'Controller@showLoginPage');
+    Route::get('/login', 'Acess@showLoginPage');
 
-    Route::post('/login', 'Controller@checkLogin');
+    Route::post('/login', 'Acess@checkLogin');
 
-    Route::post('/logout', 'Controller@makeLogout');
+    Route::post('/logout', 'Acess@makeLogout');
 
-    Route::get('/area-restrita', 'Controller@showRestrictedAreaPage');
+    Route::get('/recuperar-senha', 'Acess@showRecoverPasswordPage');
 
-    Route::get('/recuperar-senha', 'Controller@showRecoverPasswordPage');
+    Route::get('/validar/{user}/{code}', 'Acess@showValidationPage');
 
-    Route::get('/validar/{user}/{code}', 'Controller@showValidationPage');
-
-    Route::get('/processo-seletivo', 'Controller@showPSsPage');
+    Route::get('/processo-seletivo', 'SelectionProcesses@showPSsPage');
     
-    Route::get('/processo-seletivo/{department}', 'Controller@showHomePSPage');
+    Route::get('/processo-seletivo/{department}', 'SelectionProcesses@showHomePSPage');
 
-    Route::post('/processo-seletivo/{department}', 'Controller@checkSubscriptionPS');
+    Route::post('/processo-seletivo/{department}', 'SelectionProcesses@checkSubscriptionPS');
     
-    Route::get('/processo-seletivo/{department}/inscricao', 'Controller@showSubscriptionPSPage');
+    Route::get('/processo-seletivo/{department}/inscricao', 'SelectionProcesses@showSubscriptionPSPage');
 
-    Route::post('/processo-seletivo/{department}/inscricao', 'Controller@saveSubscriptionPS');
+    Route::post('/processo-seletivo/{department}/inscricao', 'SelectionProcesses@saveSubscriptionPS');
     
-    Route::get('/contato', 'Controller@showContactPage');
+    Route::get('/contato', 'PublicArea@showContactPage');
 
-    Route::post('/contato', 'Controller@sendContactEmail');
+    Route::post('/contato', 'PublicArea@sendContactEmail');
     
-    Route::get('/hall-da-fama', 'Controller@showHallOfFamePage');
+    Route::get('/hall-da-fama', 'PublicArea@showHallOfFamePage');
 
-    Route::get('/sobre-nos/quem-somos', 'Controller@showWhoWeArePage');
+    Route::get('/sobre-nos/quem-somos', 'PublicArea@showWhoWeArePage');
 
-    Route::get('/sobre-nos/nossa-equipe', 'Controller@showOurTeamPage');
+    Route::get('/sobre-nos/nossa-equipe', 'PublicArea@showOurTeamPage');
 
-    Route::get('/sobre-nos/nossa-historia', 'Controller@showOurStoryPage');
+    Route::get('/sobre-nos/nossa-historia', 'PublicArea@showOurStoryPage');
 
-    Route::get('/sobre-nos', 'Controller@showAboutUsPage');
+    Route::get('/sobre-nos', 'PublicArea@showAboutUsPage');
 
-    Route::get('/usuario/{userType}', 'Controller@showUserPage');
+    Route::get('/usuario/{userType}', 'RestrictedArea@showUserPage');
 
-    Route::get('/usuario/{userType}/{subPage}', 'Controller@showUserSubPage');
+    Route::get('/usuario/{userType}/{subPage}', 'RestrictedArea@showUserSubPage');
 
-    Route::get('/candidato/{userType}', 'Controller@showCandidatePage');
+    Route::get('/candidato/{userType}', 'RestrictedArea@showCandidatePage');
 
-    Route::get('/candidato/{userType}/{subPage}', 'Controller@showCandidateSubPage');
-
-    //Route::get('', '');
-
-    //Route::get('', '');
+    Route::get('/candidato/{userType}/{subPage}', 'RestrictedArea@showCandidateSubPage');
 
     //Route::get('', '');

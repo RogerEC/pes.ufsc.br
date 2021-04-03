@@ -5,7 +5,7 @@ namespace Router;
 
 class Dispacher
 {
-    public function dispach($callback, $params = [], $namespace = "App\\")
+    public function dispach($callback, $params = [], $namespace = "App\\Controller\\")
     {   
         // Se o callback for uma chamada de função retorna a execução dela
         if(is_callable($callback['callback']))

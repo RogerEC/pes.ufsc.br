@@ -61,7 +61,7 @@ class RouteCollection
         $pattern = '/^' . str_replace('/', '\/', $pattern) . '$/';
      
         if (preg_match("/\{[A-Za-z0-9\_\-]{1,}\}/", $pattern)) {
-            $pattern = preg_replace("/\{[A-Za-z0-9\_\-]{1,}\}/", "[A-Za-z0-9]{1,}", $pattern);
+            $pattern = preg_replace("/\{[A-Za-z0-9\_\-]{1,}\}/", "[A-Za-z0-9\-]{1,}", $pattern);
         }
      
         return $pattern;
@@ -227,9 +227,9 @@ class RouteCollection
     protected function findGet($pattern_sent)
     {
         $pattern_sent = $this->parseUri($pattern_sent);
-    
+
         foreach($this->routes_get as $pattern => $callback) {
-            
+           
             if(preg_match($pattern, $pattern_sent, $pieces)) {
                 return (object) ['callback' => $callback, 'uri' => $pieces];
             }
