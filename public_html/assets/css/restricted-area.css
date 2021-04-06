@@ -1,0 +1,85 @@
+.page-content .title{
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.75rem 0;
+    font-size: 2rem;
+    line-height: 1.2;
+    font-weight: bold;
+    border-bottom: 3px solid #212529;
+}
+
+.page-content .subtitle{
+    margin: 1.25rem 0 0.75rem;
+    padding: 0.375rem 0;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    font-weight: bold;
+    border-bottom: 1.5px solid #212529;
+}
+
+.page-content .body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-content .content{
+    flex: 1;
+}
+
+.page-content .footer{
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.75rem 0;
+    width: 100%;
+    border-top: 3px solid #212529;
+    text-align: center;
+}
+
+main .side-bar{
+    width: 20%;
+    height: 100%;
+    position: fixed;
+    overflow-y: scroll;
+    float: left;
+}
+
+main .page-content{
+    width: 80%;
+    height: 100%;
+    overflow-y: scroll;
+    float: right;
+}
+@media (max-width: 900px) {
+    main .side-bar{
+        width: 25%;
+    }
+    
+    main .page-content{
+        width: 75%;
+    }
+}
+
+@media (max-width: 768px) {
+    main .side-bar{
+        width: 32%;
+    }
+    
+    main .page-content{
+        width: 68%;
+    }
+}
+
+@media (max-width: 576px) {
+    main .page-content{
+        width: 100%;
+        float: none;
+    }
+}
+
+.box-link {
+    margin: 1rem 0;
+    padding: 1rem;
+    background-color: #dfdfdf;
+    border-radius: 1rem;
+}

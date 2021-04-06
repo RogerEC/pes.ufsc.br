@@ -1,8 +1,9 @@
 <?php
     // Arquivo que armazena todas as rotas do site
     use Router\Route as Route;
+use Router\Router;
 
-    Route::get('/', 'PublicArea@showHomePage');
+Route::get('/', 'PublicArea@showHomePage');
 
     Route::get('/links', 'PublicArea@showLinksPage');
 
@@ -49,5 +50,7 @@
     Route::get('/candidato/{userType}', 'RestrictedArea@showCandidatePage');
 
     Route::get('/candidato/{userType}/{subPage}', 'RestrictedArea@showCandidateSubPage');
+
+    Route::post(['set' => '/usuario/gestor/links', 'namespace' => 'App\\Controller\\RestrictedArea\\'], 'Users@saveLinks');
 
     //Route::get('', '');

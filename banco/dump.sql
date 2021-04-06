@@ -16,6 +16,7 @@
 -- Excluí as tabelas caso já existam
 DROP TABLE IF EXISTS `LINKS`;
 DROP TABLE IF EXISTS `USER`;
+DROP TABLE IF EXISTS `WEBSITE_SERVICES`;
 
 -- Define o charset padrão para UTF-8 de 4 bytes
 /*!40101 SET character_set_client = utf8mb4 */;
@@ -24,7 +25,7 @@ DROP TABLE IF EXISTS `USER`;
 
 CREATE TABLE IF NOT EXISTS `LINKS` (
 	`idLinks` INT NOT NULL AUTO_INCREMENT,
-    `order` INT UNIQUE NOT NULL,
+    `order` INT UNIQUE, -- NOT NULL,
 	`name` VARCHAR(64) NOT NULL,
 	`url` VARCHAR(2048) NOT NULL,
 	`status` BOOLEAN NOT NULL,
@@ -77,6 +78,31 @@ INSERT INTO `USER` VALUES(9, '57953543923', 'user@pes.ufsc.com.br', 'user', '$2y
 INSERT INTO `USER` VALUES(10, '77065100936', 'admin@pes.ufsc.com.br', 'admin', '$2y$10$NJn5b9sFWUQpV1rAn3KgzOjTROhJi3NiMU4TvsxiPdjtuN02mUDjS', 'ADMIN', 1);
 INSERT INTO `USER` VALUES(11, '50802678017', 'membro.honorario@pes.ufsc.com.br', 'membro.honorario', '$2y$10$7uU5kRQjONNPG5MeCMgVwe0pgqQrspKVx2uhhgmvgUB5Fj7vzWSv6', 'MH', 1);
 /*!40000 ALTER TABLE `USER` ENABLE KEYS */;
+UNLOCK TABLES;
+
+CREATE TABLE IF NOT EXISTS `WEBSITE_SERVICES` (
+	`idWebsiteServices` INT NOT NULL AUTO_INCREMENT,
+    `order` INT UNIQUE NOT NULL,
+	`name` VARCHAR(64) NOT NULL,
+	`url` VARCHAR(2048) NOT NULL,
+	`status` BOOLEAN NOT NULL,
+    `ADMIN` ENUM('all', 'none', 'read', 'write') NOT NULL DEFAULT 'all',
+    `G` ENUM('all', 'none', 'read', 'write') NOT NULL,
+    `GP` ENUM('all', 'none', 'read', 'write') NOT NULL,
+    `P` ENUM('all', 'none', 'read', 'write') NOT NULL,
+    `A` ENUM('all', 'none', 'read', 'write') NOT NULL,
+    `CA` ENUM('all', 'none', 'read', 'write') NOT NULL,
+    `CG` ENUM('all', 'none', 'read', 'write') NOT NULL,
+    `CP` ENUM('all', 'none', 'read', 'write') NOT NULL,
+    `MH` ENUM('all', 'none', 'read', 'write') NOT NULL,
+	PRIMARY KEY (`idWebsiteServices`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `WEBSITE_SERVICES` WRITE;
+/*!40000 ALTER TABLE `LINKS` DISABLE KEYS */;
+-- INSERT INTO WEBSITE_SERVICES VALUES (1, 1, 'Editar Serviços', '/area-51/administrador/servicos', 'all', 'none', 'none', 'none', 'none', 'none', 'none', 'none',  'none');
+-- INSERT INTO WEBSITE_SERVICES VALUES (2, 2, 'Editar Links', '/usuario/gestor/links', 'all', 'all', 'all', 'none', 'none', 'none', 'none', 'none',  'none');
+/*!40000 ALTER TABLE `WEBSITE_SERVICES` ENABLE KEYS */;
 UNLOCK TABLES;
 
 -- Restaura as variáveis originais do sistema

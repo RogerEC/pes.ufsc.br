@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% set includeHeader = false %}
+{% set includeFooter = false %}
+{% set mainClass = 'pt-0 w-100 h-100' %}
+
+{% block head %}
+        <title>Usuários - Cursinho PES</title>
+        <meta name="keywords" content="Cursinho PES; UFSC; Curso pré-vestibular; Projeto Educação Solidária; Araranguá">
+        <meta name="description" content="Página de usuários do Cursinho PES">
+        <meta name="robots" content="none">
+{% endblock head %}
+
+{% block stylesheets %}
+        <link rel="stylesheet" type="text/css" href="/assets/css/restricted-area.css">
+        <link rel="stylesheet" type="text/css" href="/assets/css/no-scrollbar.css">
+{% endblock stylesheets %}
+
+{% block main %}
+{%          include '@restricted/sideBar.html' %}
+            <!-- Coluna do formulário -->
+            <div class="coluna-formulario container-fluid">
+                <h2 class="mt-5">HOMEPAGE LINKS</h2>
+                <h4 class="mt-5">As ações de cada opção ao lado serão apresentadas aqui.</h4>
+                <form action="/logout" method="POST">
+                    <button class="btn btn-bordo mt-3" type="submit">Logout</button>
+                </form>
+{%  for link in links %}
+{%      if link.status == 1 %}
+{%          set status = 'checked'%}
+{%      endif %}
+{%      if link.permanentLink == 1 %}
+{%          set permanentLink = 'checked'%}
+{%      endif %}
+                <div class="box-link">
+                    <form method="POST" class="w-100">
+                        <input type="text" value="{{link.idLinks}}" name="idLinks" hidden>
+                        <div class="form-row">
+                            <div class="form-group col-8">
+                                <input type="text" class="form-control" name="name" id="name{{loop.index}}" placeholder="Nome" value="{{link.name}}" maxlength="64" required disabled>
+                            </div>
+                            <div class="form-group col-2">
+                                <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="status{{loop.index}}" name="status" {{status}} disabled>
+                                <label class="custom-control-label" for="status{{loop.index}}">Ativo</label>
+                                </div>
+                            </div>
+                            <div class="form-group col-2">
+                                <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="permanentLink{{loop.index}}" name="permanentLink" {{permanentLink}} disabled>
+                                <label class="custom-control-label" for="permanentLink{{loop.index}}">Expirável</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-8 mb-0">
+                                <input type="url" class="form-control" id="url{{loop.index}}" name="url" placeholder="Url" value="{{link.url}}" maxlength="2048" required disabled>
+                            </div>
+                            <div class="form-group col-2 mb-0">
+                                <input type="date" class="form-control" id="date{{loop.index}}" name="date" placeholder="data" value="" required disabled>
+                            </div>
+                            <div class="form-group col-2 mb-0">
+                                <button class="btn btn-verde w-100 editButton" value="">Editar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+{% endfor %}
+                <div class="box-link">
+                    <form method="POST" class="w-100">
+                        <input type="text" value="" name="idLink" hidden>
+                        <div class="form-row">
+                            <div class="form-group col-8">
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Nome" value="" maxlength="64" required disabled>
+                            </div>
+                            <div class="form-group col-2">
+                                <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="status" name="status" checked disabled>
+                                <label class="custom-control-label" for="status">Ativo</label>
+                                </div>
+                            </div>
+                            <div class="form-group col-2">
+                                <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="permanentLink" name="permanentLink" checked disabled>
+                                <label class="custom-control-label" for="permanentLink">Expirável</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-8 mb-0">
+                                <input type="url" class="form-control" id="url" name="url" placeholder="Url" value="" maxlength="2048" required disabled>
+                            </div>
+                            <div class="form-group col-2 mb-0">
+                                <input type="date" class="form-control" id="date" name="date" placeholder="data" value="" required disabled>
+                            </div>
+                            <div class="form-group col-2 mb-0">
+                                <button class="btn btn-verde w-100 editButton" value="">Editar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div><!-- /Coluna do formulário -->
+{% endblock main %}

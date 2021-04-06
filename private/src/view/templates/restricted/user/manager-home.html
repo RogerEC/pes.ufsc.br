@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% set includeHeader = false %}
+{% set includeFooter = false %}
+{% set mainClass = 'pt-0 w-100 h-100' %}
+
+{% block head %}
+        <title>Usuários - Cursinho PES</title>
+        <meta name="keywords" content="Cursinho PES; UFSC; Curso pré-vestibular; Projeto Educação Solidária; Araranguá">
+        <meta name="description" content="Página de usuários do Cursinho PES">
+        <meta name="robots" content="none">
+{% endblock head %}
+
+{% block stylesheets %}
+        <link rel="stylesheet" type="text/css" href="/assets/css/no-scrollbar.css">
+{% endblock stylesheets %}
+
+{% block main %}
+{%          include '@restricted/sideBar.html' %}
+            <!-- Coluna do formulário -->
+            <div class="coluna-formulario container-fluid text-center">
+                <h2 class="mt-5">HOMEPAGE GESTORES</h2>
+                <h4 class="mt-5">As ações de cada opção ao lado serão apresentadas aqui.</h4>
+                <form action="/logout" method="POST">
+                    <button class="btn btn-bordo mt-3" type="submit">Logout</button>
+                </form>
+            </div><!-- /Coluna do formulário -->
+{% endblock main %}

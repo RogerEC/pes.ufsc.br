@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+{%      block head %}{% endblock head %}
+{%      include '@components/links-head.html' %}
+{%      block stylesheets %}{% endblock stylesheets %}
+    </head>
+    
+    <body class="{{bodyClass}}">
+
+{%      if includeHeader == true %}
+{%          include '@components/public-header.html' %}
+{%      endif %}
+
+        <main class="{{mainClass}}"> <!-- Conteúdo da página -->
+{%          block main %}{% endblock main %}
+        </main> <!-- /Conteúdo da página -->
+
+{%      if includeFooter == true %}
+{%          include '@components/public-footer.html' %}
+{%      endif %}
+
+
+        <!-- Javascript -->
+        <script src="/assets/js/libs/jquery.min.js"></script>
+        <script src="/assets/js/libs/bootstrap.bundle.min.js"></script>
+        <script src="/assets/js/pages/geral.js"></script>
+{%      block scriptsJS %}{% endblock scriptsJS %}
+    </body>
+</html>

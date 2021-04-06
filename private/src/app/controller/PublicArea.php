@@ -6,18 +6,17 @@ use App\Page;
 use Database\SelectDB;
 use Router\Request;
 
+use App\PageRender;
+
+use Twig\Loader;
+use Twig;
 class PublicArea extends General {
     
     // exibe a página inicial do site
     public function showHomePage()
     {   
-        $page = new Page;
-        $page->setTitle("Cursinho Projeto Educação Solidária");
-        $page->setRobots("index, follow");
-        $page->setDescription("Curso pré-vestibular social da Universidade Federal de Santa Catarina, Campus Araranguá, destinado a estudantes da rede pública de ensino da cidade de Araranguá, SC.");
-        $page->setClassMain("h-100");
-        $page->includeFileAtMain("pages/home.php");
-        $page->renderPage();
+        $page = new PageRender;
+        $page->render('@public/homepage.html');
     }
 
     // exibe a página com resumo de links para redirecionamento
@@ -26,16 +25,8 @@ class PublicArea extends General {
         $select = new SelectDB;
         $links = $select->getActiveLinks();
 
-        $page = new Page;
-        $page->setTitle("Links - Cursinho PES");
-        $page->setRobots("index, follow");
-        $page->setDescription("Links para as redes sociais do Cursinho Projeto Educação Solidária, curso pré vestibular social da UFSC Campus Araranguá-SC.");
-        $page->setClassBody("bg-links");
-        $page->notIncludeFooter();
-        $page->notIndludeNavbar();
-        $page->includeScriptCSS("links.css");
-        $page->includeFileAtMain("pages/links.php");
-        $page->renderPage($links);
+        $page = new PageRender;
+        $page->render('@public/links.html', ['links' => $links]);
     }
 
     // exibe a página de contato

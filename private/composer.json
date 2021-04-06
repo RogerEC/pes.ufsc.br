@@ -1,0 +1,27 @@
+{
+    "name": "rogerec/site-cursinho-pes",
+    "description": "Site do Cursinho Projeto Educa\u0000\u0000o Solid\u0000ria",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Roger Eliodoro Condras",
+            "email": "roger.eliodoro.condras@pes.ufsc.br"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.0"
+    },
+    "autoload" : {
+        "psr-4": {
+            "App\\" : "src/app/",
+            "Database\\" : "src/database/",
+            "Router\\" : "src/router/",
+            "App\\Controller\\" : "src/app/controller",
+            "App\\Controller\\RestrictedArea\\" : "src/app/controller/RestrictedArea/"
+        },
+        "files" : [
+            "config/settings.php",
+            "src/helpers/helper_routes.php"
+        ]
+    }
+}

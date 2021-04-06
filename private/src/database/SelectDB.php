@@ -22,6 +22,13 @@ class SelectDB
         return $result;
     }
 
+    public function getAllLinks()
+    {
+        $querySql = "SELECT * FROM `LINKS`";
+        $result = $this->database->selectDatabase($querySql);
+        return $result;
+    }
+
     // retorna os dados do usuário consultado
     public function getUserLoginData($user)
     {

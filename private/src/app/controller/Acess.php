@@ -2,7 +2,8 @@
 // Controlador para o acesso ao site. Login, Logout, Recuperação de senha
 namespace App\Controller;
 
-
+use App\Page;
+use Router\Request;
 
 class Acess extends General {
     

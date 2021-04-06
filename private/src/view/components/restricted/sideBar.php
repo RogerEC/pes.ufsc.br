@@ -1,8 +1,8 @@
             <!-- Barra de navegação lateral -->
-            <div class="coluna-barra-lateral d-none d-sm-block bg-inscricao">
-                <div class="container-fluid pb-3" id="BotoesBarraLateral">
+            <div class="side-bar d-none d-sm-block bg-inscricao">
+                <div class="container-fluid pb-3" id="BUTTONS_SIDE_BAR">
                     <img class="pt-3 pb-3" src="/assets/img/logo-pes-circular.png" width="100%">
-                    <button class="btn btn-verde w-100 mt-2">Ver/atualizar cadastro</button>
+                    <a class="btn btn-verde w-100 mt-2" href="#">Ver/atualizar cadastro</a>
                     <button class="btn btn-verde w-100 mt-2">Editar/cadastrar membros</button>
                     <button class="btn btn-verde w-100 mt-2">Criar/gerenciar PS's</button>
                     <button class="btn btn-verde w-100 mt-2">Gerenciar Turmas</button>
@@ -14,11 +14,3 @@
                     <button class="btn btn-verde w-100 mt-2">Gerar Documentos</button>
                 </div>
             </div><!-- /Barra de navegação lateral -->
-            <!-- Coluna do formulário -->
-            <div class="coluna-formulario container-fluid text-center">
-                <div class="">Teste</div>
-                <h3 class="mt-5">As ações de cada opção ao lado serão apresentadas aqui.</h3>
-                <form action="/logout" method="POST">
-                    <button class="btn btn-bordo mt-3" type="submit">Logout</button>
-                </form>
-            </div><!-- /Coluna do formulário -->

@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\AccessControl;
+use App\PageRender;
 
 class General {
     
@@ -11,6 +12,7 @@ class General {
     {
         $this->accessControl = new AccessControl;
     }
+
     // exibe a página de erros http
     public function showErrorPage($code)
     {

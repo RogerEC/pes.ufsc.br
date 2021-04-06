@@ -4,9 +4,7 @@
     ini_set('display_errors', true);
     ini_set('default_charset', 'utf-8');
      
-    // Quando for utilizar o composer na pasta private
-    // require __DIR__ . '/vendor/autoload.php';
-    require __DIR__ . '/src/Autoload.php';
+    require __DIR__ . '/vendor/autoload.php';
      
     session_start();
      

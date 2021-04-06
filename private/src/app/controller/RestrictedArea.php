@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Page;
+use App\PageRender;
+use Database\SelectDB;
 
 class RestrictedArea extends General {
     
@@ -30,15 +32,21 @@ class RestrictedArea extends General {
                 $page->setClassMain("pt-0 w-100 h-100");
                 $page->includeScriptCSS("no-scrollbar.css");
                 if($userType === 'gestor'){
-                    $page->includeFileAtMain('pages/users/managers.php');
+                    //$page->includeFileAtMain('pages/users/managers.php');
+                    //$page->renderPage();
+                    $page2 = new PageRender;
+                    $linksSideBar = array((object) array('name' => 'Editar Links', 'url' => '/usuario/gestor/links'));
+                    $page2->render('@user/manager-home.html', ['links' => $linksSideBar]);
                 }else if($userType === 'professor'){
                     $page->includeFileAtMain('pages/users/teachers.php');
+                    $page->renderPage();
                 }else if($userType === 'aluno'){
                     $page->includeFileAtMain('pages/users/students.php');
+                    $page->renderPage();
                 }else{
                     // membro honorário page
                 }
-                $page->renderPage();
+                
             } else {
                 // redireciona o usuário para a página correta se ele estiver tentado acessar a página específica de um usuário de tipo diferente do dele
                 header("Location: $url");
@@ -62,8 +70,21 @@ class RestrictedArea extends General {
             if ($url === "401") {
                 $this->showErrorPage($url);
             } else if ($url === "/usuario/$userType") {
-                echo "Sub página <b>". $subPage ."</b> do usuário tipo ".$userType;
-                echo "<br><a href='/'>Voltar ao início</a>";
+                if($userType === 'gestor'){
+                    if($subPage === "links"){
+                        $select = new SelectDB;
+                        $links = $select->getAllLinks();
+                        $page2 = new PageRender;
+                        $linksSideBar = array((object) array('name' => 'Editar Links', 'url' => '/usuario/gestor/links'));
+                        $page2->render('@user/links.html', ['linksSideBar' => $linksSideBar, 'links' => $links]);
+                    }else{
+                        $this->showErrorPage("404");
+                        exit();
+                    }
+                }else{
+                    echo "Sub página <b>". $subPage ."</b> do usuário tipo ".$userType;
+                    echo "<br><a href='/'>Voltar ao início</a>";
+                }
             } else {
                 header("Location: $url");
                 exit();
