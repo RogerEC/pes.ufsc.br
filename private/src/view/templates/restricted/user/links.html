@@ -25,18 +25,27 @@
                 <form action="/logout" method="POST">
                     <button class="btn btn-bordo mt-3" type="submit">Logout</button>
                 </form>
+{%  set maxOrder = 0 %}
 {%  for link in links %}
+{%      if link.order > maxOrder %}
+{%        set maxOrder = link.order %}
+{%      endif %}
 {%      if link.status == 1 %}
-{%          set status = 'checked'%}
+{%          set status = 'checked' %}
+{%      else %}
+{%          set status = '' %}
 {%      endif %}
 {%      if link.permanentLink == 1 %}
-{%          set permanentLink = 'checked'%}
+{%          set permanentLink = 'checked' %}
+{%      else %}
+{%          set permanentLink = '' %}
 {%      endif %}
                 <div class="box-link">
-                    <form method="POST" class="w-100">
-                        <input type="text" value="{{link.idLinks}}" name="idLinks" hidden>
+                    <form method="POST" action="/usuario/gestor/links/edit" class="w-100" id="formLink{{loop.index}}">
+                        <input type="text" value="{{link.idLinks}}" id="idLinks{{loop.index}}" name="idLinks" hidden>
+                        <input type="text" value="{{link.order}}" name="order" hidden>
                         <div class="form-row">
-                            <div class="form-group col-8">
+                            <div class="form-group col-7">
                                 <input type="text" class="form-control" name="name" id="name{{loop.index}}" placeholder="Nome" value="{{link.name}}" maxlength="64" required disabled>
                             </div>
                             <div class="form-group col-2">
@@ -47,57 +56,72 @@
                             </div>
                             <div class="form-group col-2">
                                 <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="permanentLink{{loop.index}}" name="permanentLink" {{permanentLink}} disabled>
-                                <label class="custom-control-label" for="permanentLink{{loop.index}}">Expirável</label>
+                                <input type="checkbox" class="custom-control-input permanentLink" id="permanentLink{{loop.index}}" name="permanentLink" value="{{loop.index}}" {{permanentLink}} disabled>
+                                <label class="custom-control-label" for="permanentLink{{loop.index}}">Permanente</label>
                                 </div>
+                            </div>
+                            <div class="form-group col-1">
+                                <button class="btn btn-bordo w-100 buttonDelete" id="buttonDelete{{loop.index}}" value="{{loop.index}}">Excluir</button>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-8 mb-0">
+                            <div class="form-group col-7 mb-0">
                                 <input type="url" class="form-control" id="url{{loop.index}}" name="url" placeholder="Url" value="{{link.url}}" maxlength="2048" required disabled>
                             </div>
-                            <div class="form-group col-2 mb-0">
-                                <input type="date" class="form-control" id="date{{loop.index}}" name="date" placeholder="data" value="" required disabled>
+                            <div class="form-group col-3 mb-0">
+                                <input type="datetime-local" class="form-control" id="expirationDatetime{{loop.index}}" name="expirationDatetime" value="{{link.expirationDatetime}}" required disabled>
                             </div>
                             <div class="form-group col-2 mb-0">
-                                <button class="btn btn-verde w-100 editButton" value="">Editar</button>
+                                <button class="btn btn-verde w-100 editButton" id="editButton{{loop.index}}" value="{{loop.index}}">Editar</button>
+                                <button class="btn btn-verde w-100 saveButton" id="saveButton{{loop.index}}" value="{{loop.index}}" hidden>Salvar</button>
                             </div>
                         </div>
                     </form>
                 </div>
 {% endfor %}
-                <div class="box-link">
-                    <form method="POST" class="w-100">
-                        <input type="text" value="" name="idLink" hidden>
+                <div class="box-link ocultar" id="newLinkBox">
+                    <form method="POST" action="/usuario/gestor/links/save" class="w-100" id="formNewLink">
+                        <input type="text" value="1" name="idLinks" hidden>
+                        <input type="text" value="{{ maxOrder + 1 }}" name="order" hidden>
                         <div class="form-row">
-                            <div class="form-group col-8">
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Nome" value="" maxlength="64" required disabled>
+                            <div class="form-group col-7">
+                                <input type="text" class="form-control" name="name" id="newName" placeholder="Nome" maxlength="64" required>
                             </div>
                             <div class="form-group col-2">
                                 <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="status" name="status" checked disabled>
-                                <label class="custom-control-label" for="status">Ativo</label>
+                                <input type="checkbox" class="custom-control-input" id="newStatus" name="status">
+                                <label class="custom-control-label" for="newStatus">Ativo</label>
                                 </div>
                             </div>
                             <div class="form-group col-2">
                                 <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="permanentLink" name="permanentLink" checked disabled>
-                                <label class="custom-control-label" for="permanentLink">Expirável</label>
+                                <input type="checkbox" class="custom-control-input" id="newPermanentLink" name="permanentLink">
+                                <label class="custom-control-label" for="newPermanentLink">Permanente</label>
                                 </div>
+                            </div>
+                            <div class="form-group col-1">
+                                <button class="btn btn-bordo w-100" id="buttonDeleteNewLink">Excluir</button>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-8 mb-0">
-                                <input type="url" class="form-control" id="url" name="url" placeholder="Url" value="" maxlength="2048" required disabled>
+                            <div class="form-group col-7 mb-0">
+                                <input type="url" class="form-control" id="newUrl" name="url" placeholder="Url" maxlength="2048" required>
+                            </div>
+                            <div class="form-group col-3 mb-0">
+                                <input type="datetime-local" class="form-control" id="newExpirationDatetime" name="expirationDatetime" required>
                             </div>
                             <div class="form-group col-2 mb-0">
-                                <input type="date" class="form-control" id="date" name="date" placeholder="data" value="" required disabled>
-                            </div>
-                            <div class="form-group col-2 mb-0">
-                                <button class="btn btn-verde w-100 editButton" value="">Editar</button>
+                                <button class="btn btn-verde w-100" id="buttonSaveNewLink">Salvar</button>
                             </div>
                         </div>
                     </form>
                 </div>
+                <div class="w-100 mt-3 mb-3 text-center">
+                    <button class="btn btn-verde" id="buttonAddLink">Adicionar Link</button>
+                </div>
             </div><!-- /Coluna do formulário -->
 {% endblock main %}
+
+{% block scriptsJS %}
+            <script src="/assets/js/pages/restricted/users.js"></script>
+{% endblock scriptsJS %}

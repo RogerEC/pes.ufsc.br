@@ -42,9 +42,9 @@ INSERT INTO LINKS VALUES (3, 3, 'Facebook', 'https://www.facebook.com/cursinhope
 INSERT INTO LINKS VALUES (4, 4, 'Twitter', 'https://www.twitter.com/cursinhopes', 1, 1, NULL);
 INSERT INTO LINKS VALUES (5, 5, 'LinkedIn', 'https://www.linkedin.com/company/cursinhopes', 1, 1, NULL);
 INSERT INTO LINKS VALUES (6, 6, 'Formulário de contato (e-mail)', '/contato', 1, 1, NULL);
--- INSERT INTO LINKS VALUES (7, 7, 'Desativado', 'desativado', 0, 1, NULL);
--- INSERT INTO LINKS VALUES (8, 8, 'expirado', 'expirado', 1, 0, '2021/02/21 20:00:00');
--- INSERT INTO LINKS VALUES (9, 9, 'nao-expirado', 'nao-expirado', 1, 0, '2021/03/01 20:00:00');
+INSERT INTO LINKS VALUES (7, 7, 'Desativado', '/desativado', 0, 0, NULL);
+INSERT INTO LINKS VALUES (8, 8, 'expirado', '/expirado', 1, 0, '2021/02/21 20:00:00');
+INSERT INTO LINKS VALUES (9, 9, 'nao-expirado', '/nao-expirado', 1, 0, '2021/05/01 20:00:00');
 /*!40000 ALTER TABLE `LINKS` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `WEBSITE_SERVICES` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 LOCK TABLES `WEBSITE_SERVICES` WRITE;
-/*!40000 ALTER TABLE `LINKS` DISABLE KEYS */;
+/*!40000 ALTER TABLE `WEBSITE_SERVICES` DISABLE KEYS */;
 -- INSERT INTO WEBSITE_SERVICES VALUES (1, 1, 'Editar Serviços', '/area-51/administrador/servicos', 'all', 'none', 'none', 'none', 'none', 'none', 'none', 'none',  'none');
 -- INSERT INTO WEBSITE_SERVICES VALUES (2, 2, 'Editar Links', '/usuario/gestor/links', 'all', 'all', 'all', 'none', 'none', 'none', 'none', 'none',  'none');
 /*!40000 ALTER TABLE `WEBSITE_SERVICES` ENABLE KEYS */;

@@ -24,7 +24,7 @@ class SelectDB
 
     public function getAllLinks()
     {
-        $querySql = "SELECT * FROM `LINKS`";
+        $querySql = "SELECT `idLinks`, `order`, `name`, `url`, `status`, `permanentLink`, date_format(`expirationDatetime`, '%Y-%m-%dT%H:%i') as `expirationDatetime` FROM `LINKS`";
         $result = $this->database->selectDatabase($querySql);
         return $result;
     }

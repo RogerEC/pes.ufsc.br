@@ -26,4 +26,22 @@ class UpdateDB
         $this->database->__destruct();
         return $result;
     }
+
+    // efetua o update de um link na tabela de links
+    public function updateLinks($data)
+    {
+        $connection = $this->database->connect();
+        $query = $connection->prepare('UPDATE `LINKS` SET `order` = :newOrder, `name` = :new_name, `url` = :newUrl, `status` = :newStatus, `permanentLink` = :newPermanentLink, `expirationDatetime` = :newExpirationDatetime WHERE `idLinks` = :linkId');
+        $query->bindValue(':newOrder', $data->order, PDO::PARAM_INT);
+        $query->bindValue(':new_name', $data->name, PDO::PARAM_STR);
+        $query->bindValue(':newUrl', $data->url, PDO::PARAM_STR);
+        $query->bindValue(':newStatus', $data->status, PDO::PARAM_BOOL);
+        $query->bindValue(':newPermanentLink', $data->permanentLink, PDO::PARAM_BOOL);
+        $query->bindValue(':newExpirationDatetime', $data->expirationDatetime, PDO::PARAM_STR);
+        $query->bindValue(':linkId', $data->idLinks, PDO::PARAM_INT);
+        $query->execute();
+        $result = $query->rowCount();
+        $this->database->__destruct();
+        return $result;
+    }
 }

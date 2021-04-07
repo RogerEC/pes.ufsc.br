@@ -13,4 +13,15 @@ class DeleteDB
     {
         $this->database = new Database;
     }
+
+    public function deleteLink($linkId)
+    {
+        $connection = $this->database->connect();
+        $query = $connection->prepare('DELETE FROM `LINKS` WHERE `idLinks` = :linkId');
+        $query->bindValue(':linkId', $linkId, PDO::PARAM_INT);
+        $query->execute();
+        $result = $query->rowCount();
+        $this->database->__destruct();
+        return $result;
+    }
 }

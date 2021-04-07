@@ -36,7 +36,7 @@ class RestrictedArea extends General {
                     //$page->renderPage();
                     $page2 = new PageRender;
                     $linksSideBar = array((object) array('name' => 'Editar Links', 'url' => '/usuario/gestor/links'));
-                    $page2->render('@user/manager-home.html', ['links' => $linksSideBar]);
+                    $page2->render('@user/manager-home.html', ['linksSideBar' => $linksSideBar]);
                 }else if($userType === 'professor'){
                     $page->includeFileAtMain('pages/users/teachers.php');
                     $page->renderPage();

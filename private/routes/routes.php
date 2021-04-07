@@ -51,6 +51,10 @@ Route::get('/', 'PublicArea@showHomePage');
 
     Route::get('/candidato/{userType}/{subPage}', 'RestrictedArea@showCandidateSubPage');
 
-    Route::post(['set' => '/usuario/gestor/links', 'namespace' => 'App\\Controller\\RestrictedArea\\'], 'Users@saveLinks');
+    Route::post(['set' => '/usuario/gestor/links/save', 'namespace' => 'App\\Controller\\RestrictedArea\\'], 'Users@saveLinks');
+
+    Route::post(['set' => '/usuario/gestor/links/edit', 'namespace' => 'App\\Controller\\RestrictedArea\\'], 'Users@editLinks');
+
+    Route::post(['set' => '/usuario/gestor/links/delete', 'namespace' => 'App\\Controller\\RestrictedArea\\'], 'Users@deleteLinks');
 
     //Route::get('', '');
