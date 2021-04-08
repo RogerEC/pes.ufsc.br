@@ -4,14 +4,15 @@ namespace App\Controller;
 
 use App\Page;
 use Router\Request;
+use App\Authenticator;
 
-class Acess extends General {
+class Access {
     
     // exibe a página de login
     public function showLoginPage($errorCode = null)
     {
-        if(!$this->accessControl->checkLogin()){
-            $page = new Page;
+        if(!Authenticator::checkLogin()){
+            /*$page = new Page;
             $page->setTitle("Login - Cursinho PES");
             //$page->setRobots("index, follow");
             $page->setDescription("Página de Login para a área restrita do site do Cursinho PES, curso pré-vestibular social da UFSC Campus Araranguá-SC.");
@@ -21,13 +22,13 @@ class Acess extends General {
             $page->notIncludeFooter();
             $page->notIndludeNavbar();
             $page->includeFileAtMain("pages/login.php");
-            $page->renderPage($errorCode);
+            $page->renderPage($errorCode);*/
         }else{
             
-            $url = $this->accessControl->getUserURL();
+            $url = Authenticator::getUserURL();
             
             if($url === "401"){
-                $this->showErrorPage($url);
+                Page::showErrorHttpPage($url);
             } else {
                 header("Location: $url");
                 exit();
@@ -44,14 +45,14 @@ class Acess extends General {
         $user = strtolower(trim($request->__get("user")));
         $password = $request->__get("password");
         
-        $statusLogin = $this->accessControl->makeLogin($user, $password);
+        $statusLogin = Authenticator::makeLogin($user, $password);
 
         if($statusLogin === true) {
             
-            $url = $this->accessControl->getUserURL();
+            $url = Authenticator::getUserURL();
             
             if($url === "401"){
-                $this->showErrorPage($url);
+                Page::showErrorHttpPage($url);
             } else {
                 header("Location: $url");
                 exit();
@@ -64,7 +65,7 @@ class Acess extends General {
 
     public function makeLogout()
     {
-        $this->accessControl->makeLogout();
+        Authenticator::makeLogout();
         header("Location: /login");
         exit();
     }

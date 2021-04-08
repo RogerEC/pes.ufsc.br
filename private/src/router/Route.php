@@ -9,7 +9,9 @@ final class Route
     protected static $router;
     
     private function __construct()
-    {}
+    {
+        
+    }
         
     protected static function getRouter()
     {

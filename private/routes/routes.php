@@ -1,7 +1,6 @@
 <?php
     // Arquivo que armazena todas as rotas do site
-    use Router\Route as Route;
-use Router\Router;
+use Router\Route as Route;
 
 Route::get('/', 'PublicArea@showHomePage');
 
@@ -9,15 +8,15 @@ Route::get('/', 'PublicArea@showHomePage');
 
     Route::get(['set' => '/error/{code}', 'as' => 'pageError'], 'General@showErrorPage');
 
-    Route::get('/login', 'Acess@showLoginPage');
+    Route::get('/login', 'Access@showLoginPage');
 
-    Route::post('/login', 'Acess@checkLogin');
+    Route::post('/login', 'Access@checkLogin');
 
-    Route::post('/logout', 'Acess@makeLogout');
+    Route::post('/logout', 'Access@makeLogout');
 
-    Route::get('/recuperar-senha', 'Acess@showRecoverPasswordPage');
+    Route::get('/recuperar-senha', 'Access@showRecoverPasswordPage');
 
-    Route::get('/validar/{user}/{code}', 'Acess@showValidationPage');
+    Route::get('/validar/{user}/{code}', 'Access@showValidationPage');
 
     Route::get('/processo-seletivo', 'SelectionProcesses@showPSsPage');
     

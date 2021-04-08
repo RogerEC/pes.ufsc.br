@@ -3,13 +3,14 @@ namespace App;
 
 class DataSanitizer
 {
-
-    public function sanitizeInt($int)
+    // higieniza os dados de entrada para um inteiro
+    public static function sanitizeInt($int)
     {
         return (isset($int) && !empty($int))? filter_var(trim($int), FILTER_SANITIZE_NUMBER_INT):null;
     }
 
-    public function sanitizePostLinks($post)
+    // higieniza os dados de entrada do post para adição/edição de links
+    public static function sanitizePostLinks($post)
     {
         $data = array();
         

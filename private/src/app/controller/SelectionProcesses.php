@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Page;
 use Database\SelectDB;
 
-class SelectionProcesses extends General {
+class SelectionProcesses {
     
     // Exibe a página com o resumo de links para os processos seletivos de cada departamento
     public function showPSsPage()
@@ -26,7 +26,7 @@ class SelectionProcesses extends General {
             echo "Processo seletivo de ".$department;
             echo "<br><a href='/'>Voltar ao início</a>";
         }else{
-            $this->showErrorPage("404");
+            Page::showErrorHttpPage("404");
         }
     }
 
@@ -39,7 +39,7 @@ class SelectionProcesses extends General {
             echo "Processo seletivo de ".$department;
             echo "<br><a href='/'>Voltar ao início</a>";
         }else{
-            $this->showErrorPage("404");
+            Page::showErrorHttpPage("404");
         }
     }
 
@@ -52,7 +52,7 @@ class SelectionProcesses extends General {
             echo "Página de inscrição Processo Seletivo de ".$department;
             echo "<br><a href='/'>Voltar ao início</a>";
         }else{
-            $this->showErrorPage("404");
+            Page::showErrorHttpPage("404");
         }
     }
 
@@ -65,7 +65,7 @@ class SelectionProcesses extends General {
             echo "Página de inscrição Processo Seletivo de ".$department;
             echo "<br><a href='/'>Voltar ao início</a>";
         }else{
-            $this->showErrorPage("404");
+            Page::showErrorHttpPage("404");
         }
     }
 }

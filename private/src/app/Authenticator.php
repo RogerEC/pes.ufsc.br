@@ -1,22 +1,22 @@
 <?php 
-// classe responsável por gerenciar e controlar o acesso as páginas privadas que requerem login do usuário
+// classe responsável por gerenciar e controlar a autenticação do usuário no sistema
 namespace App;
 
 use Database\SelectDB;
 use Database\UpdateDB;
 
-class AccessControl
+class Authenticator
 {
     // Verifica se o usuário está logado
-    public function checkLogin()
+    public static function checkLogin()
     {
         return (isset($_SESSION['userId']) && !empty($_SESSION['userId']))? true:false;
     }
 
     // Pega o id do usuário caso ele esteja logado ou retorna null caso contrário
-    public function getUserID()
+    public static function getUserID()
     {
-        if ($this->checkLogin()) {
+        if (self::checkLogin()) {
             return $_SESSION['userId'];
         } else {
             return null;
@@ -24,24 +24,24 @@ class AccessControl
     }
 
     // verifica se o usuário é usuário (true) ou candidato (false)
-    public function isUser() 
+    public static function isUser() 
     {
-        if(!$this->checkLogin()) {
-            $this->makeLogout();
+        if(!self::checkLogin()) {
+            self::makeLogout();
             return "401";
         }
-        return ($this->getUserType() === 'G' || $this->getUserType() === 'GP'
-        || $this->getUserType() === 'A' || $this->getUserType() === 'P')? true:false;
+        return (self::getUserType() === 'G' || self::getUserType() === 'GP'
+        || self::getUserType() === 'A' || self::getUserType() === 'P')? true:false;
     }
 
     // retorna o departamento do usuário dependendo do seu tipo
-    public function getDepartment()
+    public static function getDepartment()
     {
-        if(!$this->checkLogin()) {
-            $this->makeLogout();
+        if(!self::checkLogin()) {
+            self::makeLogout();
             return "401";
         }
-        switch($this->getUserType()){
+        switch(self::getUserType()){
             case 'G':
             case 'GP':
             case 'CG':
@@ -63,15 +63,15 @@ class AccessControl
                 break;
             default:
                 $departament = "401";
-                $this->makeLogout();
+                self::makeLogout();
         }
         return $departament;
     }
 
     // retorna a URL para a página restrita inicial específica dependendo do tipo de usuário
-    public function getUserURL() {
-        if ($this->checkLogin()) {
-            switch($this->getUserType()){
+    public static function getUserURL() {
+        if (self::checkLogin()) {
+            switch(self::getUserType()){
                 case 'G':
                 case 'GP':
                     $url = '/usuario/gestor';
@@ -99,19 +99,19 @@ class AccessControl
                     break;
                 default:
                     $url = "401";
-                    $this->makeLogout();
+                    self::makeLogout();
             }
             return $url;
         } else {
-            $this->makeLogout();
+            self::makeLogout();
             return "401";
         }
     }
 
     // Pega o typo do usuário caso esteja logado ou retorna null caso contrário
-    public function getUserType()
+    public static function getUserType()
     {
-        if ($this->checkLogin()) {
+        if (self::checkLogin()) {
             return $_SESSION['userType'];
         } else {
             return null;
@@ -119,10 +119,9 @@ class AccessControl
     }
 
     // Verifica se os dados de login estão corretos e se sim, loga o usuário ou retorna erro.
-    public function makeLogin($user, $password)
+    public static function makeLogin($user, $password)
     {
-        $select = new SelectDB;
-        $userLoginData = $select->getUserLoginData($user);
+        $userLoginData = SelectDB::getUserLoginData($user);
 
         if(!empty($userLoginData)) {
             
@@ -134,8 +133,8 @@ class AccessControl
                     
                     // se for necessário atualizar, gera o novo hash e realiza um update no banco
                     $newHash = password_hash($password, PASSWORD_DEFAULT);
-                    $update = new UpdateDB;
-                    $update->updatePasswordHash($userLoginData->idUser, $newHash);
+
+                    UpdateDB::updatePasswordHash($userLoginData->idUser, $newHash);
                 }
                 //efetua o login do usuário persistindo seu id e tipo
                 $_SESSION['userId'] = $userLoginData->idUser;
@@ -145,18 +144,18 @@ class AccessControl
 
             } else {
                 // caso a senha não corresponda ao hash, informa o erro de senha
-                $this->makeLogout();
+                self::makeLogout();
                 return ["wrongPassword", $user];
             }
         } else {
             // caso a consulta do banco volte vazia, informa que o usuário não foi encontrado
-            $this->makeLogout();
+            self::makeLogout();
             return ["userNotFound", $user];
         }
     }
 
     // Destrói a sessão, deslogando o usuário do sistema.
-    public function makeLogout()
+    public static function makeLogout()
     {
         $_SESSION = array();
 

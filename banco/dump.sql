@@ -41,10 +41,10 @@ INSERT INTO LINKS VALUES (2, 2, 'Instagram', 'https://www.instagram.com/cursinho
 INSERT INTO LINKS VALUES (3, 3, 'Facebook', 'https://www.facebook.com/cursinhopes', 1, 1, NULL);
 INSERT INTO LINKS VALUES (4, 4, 'Twitter', 'https://www.twitter.com/cursinhopes', 1, 1, NULL);
 INSERT INTO LINKS VALUES (5, 5, 'LinkedIn', 'https://www.linkedin.com/company/cursinhopes', 1, 1, NULL);
-INSERT INTO LINKS VALUES (6, 6, 'Formulário de contato (e-mail)', '/contato', 1, 1, NULL);
-INSERT INTO LINKS VALUES (7, 7, 'Desativado', '/desativado', 0, 0, NULL);
-INSERT INTO LINKS VALUES (8, 8, 'expirado', '/expirado', 1, 0, '2021/02/21 20:00:00');
-INSERT INTO LINKS VALUES (9, 9, 'nao-expirado', '/nao-expirado', 1, 0, '2021/05/01 20:00:00');
+INSERT INTO LINKS VALUES (6, 6, 'Formulário de contato (e-mail)', 'https://pes.ufsc.br/contato', 1, 1, NULL);
+INSERT INTO LINKS VALUES (7, 7, 'Desativado', 'https://pes.ufsc.br/desativado', 0, 0, NULL);
+INSERT INTO LINKS VALUES (8, 8, 'expirado', 'https://pes.ufsc.br/expirado', 1, 0, '2021/02/21 20:00:00');
+INSERT INTO LINKS VALUES (9, 9, 'nao-expirado', 'https://pes.ufsc.br/nao-expirado', 1, 0, '2021/05/01 20:00:00');
 /*!40000 ALTER TABLE `LINKS` ENABLE KEYS */;
 UNLOCK TABLES;
 

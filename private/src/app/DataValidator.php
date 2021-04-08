@@ -7,22 +7,17 @@ use DateTimeZone;
 
 class DataValidator 
 {
-    private $dataSanitizer;
-
-    public function __construct()
+    // retorna o inteiro se for válido, falso caso contrário
+    public static function validateInt($int)
     {
-        $this->dataSanitizer = new DataSanitizer;
-    }
-
-    public function validateInt($int)
-    {
-        $clearInt = $this->dataSanitizer->sanitizeInt($int);
+        $clearInt = DataSanitizer::sanitizeInt($int);
         return filter_var($clearInt, FILTER_VALIDATE_INT);
     }
 
-    public function validatePostLinks($post)
+    // valida e retorna os dados higienizados do post para adicionar/editar links
+    public static function validatePostLinks($post)
     {
-        $data = $this->dataSanitizer->sanitizePostLinks($post);
+        $data = DataSanitizer::sanitizePostLinks($post);
 
         $data->idLinks = filter_var($data->idLinks, FILTER_VALIDATE_INT);
         $data->order = filter_var($data->order, FILTER_VALIDATE_INT);

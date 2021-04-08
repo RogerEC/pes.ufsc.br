@@ -3,10 +3,10 @@
 namespace App\Controller;
 
 use App\Page;
-use App\PageRender;
+use App\Authenticator;
 use Database\SelectDB;
 
-class RestrictedArea extends General {
+class RestrictedArea {
     
     // exibe a página para usuários logados
     public function showUserPage($userType)
@@ -17,32 +17,29 @@ class RestrictedArea extends General {
         || $userType === "professor" || $userType === "membro-honorario") {
             
             // pega o link da área restrita específico para o usuário
-            $url = $this->accessControl->getUserURL();
+            $url = Authenticator::getUserURL();
             
             if ($url === "401") { // verifica se o usuário está acessando a página correta
-                $this->showErrorPage($url);
+                Page::showErrorHttpPage($url);
             } else if ($url === "/usuario/$userType") {
                 // renderiza a página se o usuário está acessando a página correta
-                $page = new Page;
+                /*$page = new Page;
                 $page->setTitle("Área do $userType");
                 //$page->setRobots('index, follow');
                 $page->setDescription("Área restrita a membros do Cursinho Projeto Educação Solidária. Perfil de acesso: $userType do Cursinho PES.");
                 $page->notIncludeFooter();
                 $page->notIndludeNavbar();
                 $page->setClassMain("pt-0 w-100 h-100");
-                $page->includeScriptCSS("no-scrollbar.css");
+                $page->includeScriptCSS("no-scrollbar.css");*/
                 if($userType === 'gestor'){
-                    //$page->includeFileAtMain('pages/users/managers.php');
-                    //$page->renderPage();
-                    $page2 = new PageRender;
                     $linksSideBar = array((object) array('name' => 'Editar Links', 'url' => '/usuario/gestor/links'));
-                    $page2->render('@user/manager-home.html', ['linksSideBar' => $linksSideBar]);
+                    Page::render('@user/manager-home.html', ['linksSideBar' => $linksSideBar]);
                 }else if($userType === 'professor'){
-                    $page->includeFileAtMain('pages/users/teachers.php');
-                    $page->renderPage();
+                    //$page->includeFileAtMain('pages/users/teachers.php');
+                    //$page->renderPage();
                 }else if($userType === 'aluno'){
-                    $page->includeFileAtMain('pages/users/students.php');
-                    $page->renderPage();
+                    //$page->includeFileAtMain('pages/users/students.php');
+                    //$page->renderPage();
                 }else{
                     // membro honorário page
                 }
@@ -54,7 +51,7 @@ class RestrictedArea extends General {
             }
         }else{
             // mostra erro 404 caso o usuário tente acessar uma página de um setor que não existe
-            $this->showErrorPage("404");
+            Page::showErrorHttpPage("404");
         }
     }
 
@@ -65,20 +62,18 @@ class RestrictedArea extends General {
         if ($userType === "aluno" || $userType === "gestor"
         || $userType === "professor" || $userType === "membro-honorario") {
 
-            $url = $this->accessControl->getUserURL();
+            $url = Authenticator::getUserURL();
             
             if ($url === "401") {
-                $this->showErrorPage($url);
+                Page::showErrorHttpPage($url);
             } else if ($url === "/usuario/$userType") {
                 if($userType === 'gestor'){
                     if($subPage === "links"){
-                        $select = new SelectDB;
-                        $links = $select->getAllLinks();
-                        $page2 = new PageRender;
+                        $links = SelectDB::getAllLinks();
                         $linksSideBar = array((object) array('name' => 'Editar Links', 'url' => '/usuario/gestor/links'));
-                        $page2->render('@user/links.html', ['linksSideBar' => $linksSideBar, 'links' => $links]);
+                        Page::render('@user/links.html', ['linksSideBar' => $linksSideBar, 'links' => $links]);
                     }else{
-                        $this->showErrorPage("404");
+                        Page::showErrorHttpPage("404");
                         exit();
                     }
                 }else{
@@ -90,7 +85,7 @@ class RestrictedArea extends General {
                 exit();
             }
         } else {
-            $this->showErrorPage("404");
+            Page::showErrorHttpPage("404");
         }
     }
 
@@ -101,35 +96,35 @@ class RestrictedArea extends General {
         if($userType === "aluno" || $userType === "gestor"
         || $userType === "professor") {
 
-            $url = $this->accessControl->getUserURL();
+            $url = Authenticator::getUserURL();
             
             if ($url === "401") {
-                $this->showErrorPage($url);
+                Page::showErrorHttpPage($url);
             } else if ($url === "/candidato/$userType") {
                 
-                $page = new Page;
+                /*$page = new Page;
                 $page->setTitle("Área do candidato - $userType");
                 //$page->setRobots('index, follow');
                 $page->setDescription("Área restrita a candidatos a $userType do Cursinho Projeto Educação Solidária. Perfil de acesso: candidato $userType do Cursinho PES.");
                 $page->notIncludeFooter();
                 $page->notIndludeNavbar();
                 $page->setClassMain("pt-0 w-100 h-100");
-                $page->includeScriptCSS("no-scrollbar.css");
+                $page->includeScriptCSS("no-scrollbar.css");*/
                 if($userType === 'gestor'){
-                    $page->includeFileAtMain('pages/candidates/managers.php');
+                    //$page->includeFileAtMain('pages/candidates/managers.php');
                 }else if($userType === 'professor'){
-                    $page->includeFileAtMain('pages/candidates/teachers.php');
+                    //$page->includeFileAtMain('pages/candidates/teachers.php');
                 }else{
-                    $page->includeFileAtMain('pages/candidates/students.php');
+                    //$page->includeFileAtMain('pages/candidates/students.php');
                 }
-                $page->renderPage();
+                //$page->renderPage();
             } else {
                 header("Location: $url");
                 exit();
             }
             
         }else{
-            $this->showErrorPage("404");
+            Page::showErrorHttpPage("404");
         }
     }
 
@@ -140,10 +135,10 @@ class RestrictedArea extends General {
         if($userType === "aluno" || $userType === "gestor"
         || $userType === "professor") {
 
-            $url = $this->accessControl->getUserURL();
+            $url = Authenticator::getUserURL();
             
             if ($url === "401") {
-                $this->showErrorPage($url);
+                Page::showErrorHttpPage($url);
             } else if ($url === "/candidato/$userType") {
                 echo "Sub página <b>". $subPage ."</b> do candidato tipo ".$userType;
                 echo "<br><a href='/'>Voltar ao início</a>";
@@ -152,7 +147,7 @@ class RestrictedArea extends General {
                 exit();
             }
         }else{
-            $this->showErrorPage("404");
+            Page::showErrorHttpPage("404");
         }
     }
 }

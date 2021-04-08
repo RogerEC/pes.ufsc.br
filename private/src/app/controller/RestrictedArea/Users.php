@@ -14,13 +14,11 @@ class Users extends RestrictedArea {
     public function saveLinks()
     {
         $request = new Request;
-        $validator = new DataValidator;
 
-        $cleanData = $validator->validatePostLinks($request->all());
+        $cleanData = DataValidator::validatePostLinks($request->all());
 
         if($cleanData->validationStatus){
-            $insertBD = new InsertDB;
-            $insertBD->addNewLink($cleanData);
+            InsertDB::addNewLink($cleanData);
             header('Location: /usuario/gestor/links');
             exit();
         }else {
@@ -33,13 +31,11 @@ class Users extends RestrictedArea {
     public function editLinks()
     {
         $request = new Request;
-        $validator = new DataValidator;
 
-        $cleanData = $validator->validatePostLinks($request->all());
+        $cleanData = DataValidator::validatePostLinks($request->all());
 
         if($cleanData->validationStatus){
-            $updateBD = new UpdateDB;
-            $updateBD->updateLinks($cleanData);
+            UpdateDB::updateLinks($cleanData);
             header('Location: /usuario/gestor/links');
             exit();
         }else {
@@ -52,13 +48,11 @@ class Users extends RestrictedArea {
     public function deleteLinks()
     {
         $request = new Request;
-        $validator = new DataValidator;
 
-        $cleanIdLink = $validator->validateInt($request->__get('idLink'));
+        $cleanIdLink = DataValidator::validateInt($request->__get('idLink'));
         
         if($cleanIdLink !== false){
-            $deleteDB = new DeleteDB;
-            if($deleteDB->deleteLink($cleanIdLink) == 1){
+            if(DeleteDB::deleteLink($cleanIdLink) == 1){
                 echo true;
                 return;
             }

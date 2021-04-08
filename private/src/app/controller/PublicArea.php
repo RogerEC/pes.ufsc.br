@@ -6,33 +6,26 @@ use App\Page;
 use Database\SelectDB;
 use Router\Request;
 
-use App\PageRender;
-
-use Twig\Loader;
-use Twig;
-class PublicArea extends General {
+class PublicArea {
     
     // exibe a página inicial do site
     public function showHomePage()
     {   
-        $page = new PageRender;
-        $page->render('@public/homepage.html');
+        Page::render('@public/homepage.html');
     }
 
     // exibe a página com resumo de links para redirecionamento
     public function showLinksPage()
     {
-        $select = new SelectDB;
-        $links = $select->getActiveLinks();
+        $links = SelectDB::getActiveLinks();
 
-        $page = new PageRender;
-        $page->render('@public/links.html', ['links' => $links]);
+        Page::render('@public/links.html', ['links' => $links]);
     }
 
     // exibe a página de contato
     public function showContactPage()
     {
-        $page = new Page;
+        /*$page = new Page;
         $page->setTitle("Contato - Cursinho PES");
         $page->setRobots("index, follow");
         $page->setDescription("Formulário de contato por e-mail com o Cursinho PES.");
@@ -41,7 +34,7 @@ class PublicArea extends General {
         //$page->notIndludeNavbar();
         $page->includeScriptCSS("contact.css");
         $page->includeFileAtMain("pages/contact.php");
-        $page->renderPage();
+        $page->renderPage();*/
     }
 
     // envia o e-mail de contato com os dados recebidos do formulário de contato no site
