@@ -25,16 +25,7 @@ class PublicArea {
     // exibe a página de contato
     public function showContactPage()
     {
-        /*$page = new Page;
-        $page->setTitle("Contato - Cursinho PES");
-        $page->setRobots("index, follow");
-        $page->setDescription("Formulário de contato por e-mail com o Cursinho PES.");
-        $page->setClassBody("bg-links");
-        //$page->notIncludeFooter();
-        //$page->notIndludeNavbar();
-        $page->includeScriptCSS("contact.css");
-        $page->includeFileAtMain("pages/contact.php");
-        $page->renderPage();*/
+        Page::render('@public/contact.html');
     }
 
     // envia o e-mail de contato com os dados recebidos do formulário de contato no site

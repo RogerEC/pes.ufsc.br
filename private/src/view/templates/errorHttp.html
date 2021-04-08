@@ -1,1 +1,24 @@
 {% extends "base.html" %}
+
+{% set includeHeader = false %}
+{% set includeFooter = false %}
+{% set mainClass = 'container text-center mt-5' %}
+
+{% block head %}
+        <title>Erro {{code}}</title>
+        <meta name="keywords" content="Cursinho PES; UFSC; Curso pré-vestibular; Projeto Educação Solidária; Araranguá">
+        <meta name="description" content="Página de erro.">
+        <meta name="robots" content="none">
+{% endblock head %}
+
+{% block main %}
+            <h1 class="mb-5">Erro {{code}} - {{name}}</h1>
+{% if description != '' %}
+            <p class='mb-4'>{{description}}</p>;
+{% endif %}
+{% if code == '401' %}
+            <p class='mb-4'><b><a href='/login'>Clique aqui</a></b> para realizar o login ou <b><a href='/'>clique aqui</a></b> para voltar a página inicial.</p>
+{% else %}
+            <p><b><a href='/'>Clique aqui</a></b> para voltar a página inicial.</p>
+{% endif %}
+{% endblock main %}

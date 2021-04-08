@@ -9,20 +9,12 @@ use App\Authenticator;
 class Access {
     
     // exibe a página de login
-    public function showLoginPage($errorCode = null)
+    public function showLoginPage($errorData = [])
     {
         if(!Authenticator::checkLogin()){
-            /*$page = new Page;
-            $page->setTitle("Login - Cursinho PES");
-            //$page->setRobots("index, follow");
-            $page->setDescription("Página de Login para a área restrita do site do Cursinho PES, curso pré-vestibular social da UFSC Campus Araranguá-SC.");
-            $page->setClassBody("bg-links text-center");
-            $page->includeScriptCSS("login.css");
-            $page->includeScriptJS("pages/login.js");
-            $page->notIncludeFooter();
-            $page->notIndludeNavbar();
-            $page->includeFileAtMain("pages/login.php");
-            $page->renderPage($errorCode);*/
+            
+            Page::render('@public/login.html', $errorData);
+
         }else{
             
             $url = Authenticator::getUserURL();
@@ -45,9 +37,9 @@ class Access {
         $user = strtolower(trim($request->__get("user")));
         $password = $request->__get("password");
         
-        $statusLogin = Authenticator::makeLogin($user, $password);
+        $callback = Authenticator::makeLogin($user, $password);
 
-        if($statusLogin === true) {
+        if($callback['loginStatus'] === true) {
             
             $url = Authenticator::getUserURL();
             
@@ -59,7 +51,7 @@ class Access {
             }
             
         } else {
-            $this->showLoginPage($statusLogin);
+            $this->showLoginPage($callback);
         }
     }
 

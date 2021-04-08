@@ -1,3 +1,21 @@
+{% extends "base.html" %}
+
+{% set includeHeader = true %}
+{% set includeFooter = true %}
+{% set bodyClass = 'bg-links' %}
+
+{% block head %}
+        <title>Contato - Cursinho PES</title>
+        <meta name="keywords" content="Cursinho PES; UFSC; Curso pré-vestibular; Projeto Educação Solidária; Araranguá">
+        <meta name="description" content="Formulário de contato por e-mail com o Cursinho PES.">
+        <meta name="robots" content="index, follow">
+{% endblock head %}
+
+{% block stylesheets %}
+        <link rel="stylesheet" type="text/css" href="/assets/css/contact.css">
+{% endblock stylesheets %}
+
+{% block main %}
             <div class="wrapper">
                 <div class="out">
                     <form class="container-fluid pb-4 pt-4 bg-form" method="POST">
@@ -46,3 +64,5 @@
                     </form>
                 </div>
             </div>
+{% endblock main %}
+

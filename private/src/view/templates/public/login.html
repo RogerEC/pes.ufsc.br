@@ -1,26 +1,21 @@
-<?php
-    $classUser = '';
-    $classPassword = '';
-    $unknownError = null;
-    $errorUser = null;
-    $errorPassword = null;
-    $user = '';
-    if(!empty($parameters)){
-        if(isset($parameters[0]) && isset($parameters[1]) 
-        && $parameters[0] === "userNotFound"){
-            $errorUser = "Usuário não encontrado!";
-            $classUser = " is-invalid";
-            $user = $parameters[1];
-        } else if(isset($parameters[0]) && isset($parameters[1]) 
-        && $parameters[0] === "wrongPassword") {
-            $errorPassword = "Senha incorreta!";
-            $classPassword = " is-invalid";
-            $user = $parameters[1];
-        } else {
-            $unknownError = "Ocorreu um erro desconhecido ao realizar o login. Tente novamente! Caso o erro persista entre em contato com o suporte em: <b>contato@pes.ufsc.br</b>.";
-        }
-    }
-?>
+{% extends "base.html" %}
+
+{% set includeHeader = false %}
+{% set includeFooter = false %}
+{% set bodyClass = 'bg-links text-center' %}
+
+{% block head %}
+        <title>Login - Cursinho PES</title>
+        <meta name="keywords" content="Cursinho PES; UFSC; Curso pré-vestibular; Projeto Educação Solidária; Araranguá">
+        <meta name="description" content="Página de Login para a área restrita do site do Cursinho PES, curso pré-vestibular social da UFSC Campus Araranguá-SC.">
+        <meta name="robots" content="index, follow">
+{% endblock head %}
+
+{% block stylesheets %}
+        <link rel="stylesheet" type="text/css" href="/assets/css/login.css">
+{% endblock stylesheets %}
+
+{% block main %}
             <div class="wrapper">
                 <div class="out">
                     <div class="form-row bg-form p-4">
@@ -34,21 +29,21 @@
                                 <h6 class="pb-2 text-left">Realize o login antes de continuar.</h6>
                                 <div class="form-row">
                                     <div class="form-group w-100 text-justify">
-<?php if(!empty($unknownError)) {?>
-                                        <p id="unknownError"><small class="text-danger"><?=$unknownError;?></small></p>
-<?php } ?>
-                                        <input type="text" class="form-control<?=$classUser;?>" id="user" name="user" placeholder="CPF" value="<?=$user;?>" required>
-<?php if(!empty($errorUser)) {?>
-                                        <small class="text-danger" id="errorUser"><?=$errorUser;?></small>
-<?php } ?>
+{% if unknownError != '' %}
+                                        <p id="unknownError"><small class="text-danger">{{unknownError}}</small></p>
+{% endif %}
+                                        <input type="text" class="form-control {{classInvalidUser}}" id="user" name="user" placeholder="CPF" value="{{user}}" required>
+{% if errorUser != '' %}
+                                        <small class="text-danger" id="errorUser">{{errorUser}}</small>
+{% endif %}
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group w-100 mb-0 text-left">
-                                        <input type="password" class="form-control<?=$classPassword;?>" id="password" name="password" placeholder="Senha" required>
-<?php if(!empty($errorPassword)) {?>
-                                        <small class="text-danger" id="errorPassword"><?=$errorPassword;?></small>
-<?php } ?>
+                                        <input type="password" class="form-control {{classInvalidPassword}}" id="password" name="password" placeholder="Senha" required>
+{% if errorPassword != '' %}
+                                        <small class="text-danger" id="errorPassword">{{errorPassword}}</small>
+{% endif %}
                                     </div>
                                 </div>
                                 <div class="w-100 text-right">
@@ -67,3 +62,8 @@
                     </div>
                 </div>
             </div>
+{% endblock main %}
+
+{% block scriptsJS %}
+        <script src="/assets/js/pages/login.js"></script>
+{% endblock scriptsJS %}

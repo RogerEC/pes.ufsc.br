@@ -140,17 +140,19 @@ class Authenticator
                 $_SESSION['userId'] = $userLoginData->idUser;
                 $_SESSION['userType'] = $userLoginData->type;
                 
-                return true;
+                return array('loginStatus' => true);
 
             } else {
                 // caso a senha não corresponda ao hash, informa o erro de senha
                 self::makeLogout();
-                return ["wrongPassword", $user];
+
+                return array('loginStatus' => false, 'errorPassword' => 'Senha incorreta!', 'user' => $user, 'classInvalidPassword' => 'is-invalid');
             }
         } else {
             // caso a consulta do banco volte vazia, informa que o usuário não foi encontrado
             self::makeLogout();
-            return ["userNotFound", $user];
+
+            return array('loginStatus' => false, 'errorUser' => 'Usuário não encontrado!', 'user' => $user, 'classInvalidUser' => 'is-invalid');
         }
     }
 
