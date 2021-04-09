@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
-{% set includeHeader = false %}
-{% set includeFooter = false %}
+{% set includeRestrictedHeader = true %}
 {% set mainClass = 'pt-0 w-100 h-100' %}
 
 {% block head %}
@@ -19,12 +18,8 @@
 {% block main %}
 {%          include '@restricted/sideBar.html' %}
             <!-- Coluna do formulário -->
-            <div class="coluna-formulario container-fluid">
-                <h2 class="mt-5">HOMEPAGE LINKS</h2>
-                <h4 class="mt-5">As ações de cada opção ao lado serão apresentadas aqui.</h4>
-                <form action="/logout" method="POST">
-                    <button class="btn btn-bordo mt-3" type="submit">Logout</button>
-                </form>
+            <div class="coluna-formulario container-fluid mt-5 pt-4">
+                <h4>Edite os links ou adicione um novo abaixo.</h4>
 {%  set maxOrder = 0 %}
 {%  for link in links %}
 {%      if link.order > maxOrder %}
@@ -48,20 +43,23 @@
                             <div class="form-group col-7">
                                 <input type="text" class="form-control" name="name" id="name{{loop.index}}" placeholder="Nome" value="{{link.name}}" maxlength="64" required disabled>
                             </div>
-                            <div class="form-group col-2">
-                                <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="status{{loop.index}}" name="status" {{status}} disabled>
-                                <label class="custom-control-label" for="status{{loop.index}}">Ativo</label>
+                            <div class="form-group form-row col-3">
+                                <div class="form-group col-6">
+                                    <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="status{{loop.index}}" name="status" {{status}} disabled>
+                                    <label class="custom-control-label" for="status{{loop.index}}">Ativo</label>
+                                    </div>
+                                </div>
+                                <div class="form-group col-6">
+                                    <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input permanentLink" id="permanentLink{{loop.index}}" name="permanentLink" value="{{loop.index}}" {{permanentLink}} disabled>
+                                    <label class="custom-control-label" for="permanentLink{{loop.index}}">Permanente</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group col-2">
-                                <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input permanentLink" id="permanentLink{{loop.index}}" name="permanentLink" value="{{loop.index}}" {{permanentLink}} disabled>
-                                <label class="custom-control-label" for="permanentLink{{loop.index}}">Permanente</label>
-                                </div>
-                            </div>
-                            <div class="form-group col-1">
-                                <button class="btn btn-bordo w-100 buttonDelete" id="buttonDelete{{loop.index}}" value="{{loop.index}}">Excluir</button>
+                                <button class="btn btn-bordo w-100 ml-2 buttonDelete" id="buttonDelete{{loop.index}}" value="{{loop.index}}">Excluir</button>
+                                <button class="btn btn-bordo w-100 ml-2 buttonCancel" id="buttonCancel{{loop.index}}" value="{{loop.index}}" hidden>Cancelar</button>
                             </div>
                         </div>
                         <div class="form-row">
@@ -120,6 +118,27 @@
                     <button class="btn btn-verde" id="buttonAddLink">Adicionar Link</button>
                 </div>
             </div><!-- /Coluna do formulário -->
+            <!-- Modal -->
+            <button type="button" data-toggle="modal" data-target="#staticBackdrop" id="modalDeleteConfirmation" hidden></button>
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-bordo-pes">
+                    <h5 class="modal-title" id="staticBackdropLabel">Você tem certeza?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="mt-3">Não será mais possível recuperar o link após a exclusão.</p>
+                    </div>
+                    <div class="modal-footer w-100">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-bordo" id="buttonDeleteConfirmation">Excluir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 {% endblock main %}
 
 {% block scriptsJS %}

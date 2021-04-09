@@ -8,16 +8,20 @@
     
     <body class="{{bodyClass}}">
 
-{%      if includeHeader == true %}
+{%      if includePublicHeader == true %}
 {%          include '@components/public-header.html' %}
+{%      elseif includeRestrictedHeader == true %}
+{%          include '@components/restricted-header.html' %}
 {%      endif %}
 
         <main class="{{mainClass}}"> <!-- Conteúdo da página -->
 {%          block main %}{% endblock main %}
         </main> <!-- /Conteúdo da página -->
 
-{%      if includeFooter == true %}
+{%      if includePublicFooter == true %}
 {%          include '@components/public-footer.html' %}
+{%      elseif includeRestrictedFooter == true %}
+{%          include '@components/restricted-footer.html' %}
 {%      endif %}
 
 

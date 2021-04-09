@@ -331,3 +331,7 @@ main .coluna-formulario{
 .font-100{
     font-size: 100% !important;
 }
+
+.navbar {
+    border-bottom: 3px solid #350a12 !important;
+}
