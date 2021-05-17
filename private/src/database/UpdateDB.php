@@ -35,4 +35,28 @@ class UpdateDB extends Database
         parent::disconnect();
         return $result;
     }
+
+    // realiza o update dos dados do perfil de usuário
+    public static function updateUserProfile($data, $fileName = 'default.png')
+    {
+        $query = parent::connect()->prepare('UPDATE `PERSONAL_INFORMATION` SET `name` = :new_name, `lastName` = :newLastName, `photoFile` = :newPhotoFile WHERE `idUser` = :userId');
+        $query->bindValue(':new_name', $data->name, PDO::PARAM_STR);
+        $query->bindValue(':newLastName', $data->lastName, PDO::PARAM_STR);
+        $query->bindValue(':newPhotoFile', $fileName, PDO::PARAM_STR);
+        $query->bindValue(':userId', $data->idUser, PDO::PARAM_INT);
+        if($query->execute() === false){
+            parent::disconnect();
+            return 'ERROR-000';
+        }
+        parent::disconnect();
+        $query = parent::connect()->prepare('UPDATE `USER` SET `email` = :newEmail WHERE `idUser` = :userId');
+        $query->bindValue(':newEmail', $data->email, PDO::PARAM_STR);
+        $query->bindValue(':userId', $data->idUser, PDO::PARAM_INT);
+        if($query->execute() === false){
+            parent::disconnect();
+            return 'ERROR-001';
+        }
+        parent::disconnect();
+        return true;
+    }
 }

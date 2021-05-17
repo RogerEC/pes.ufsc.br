@@ -32,7 +32,9 @@ class RestrictedArea {
                 $page->setClassMain("pt-0 w-100 h-100");
                 $page->includeScriptCSS("no-scrollbar.css");*/
                 if($userType === 'gestor'){
-                    $linksSideBar = array((object) array('name' => 'Editar Links', 'url' => '/usuario/gestor/links'));
+                    $linksSideBar = array((object) array('name' => 'Editar Perfil', 'url' => '/usuario/gestor/profile'),
+                                    (object) array('name' => 'Editar Usuários', 'url' => '/usuario/gestor/users'),
+                                    (object) array('name' => 'Editar Links', 'url' => '/usuario/gestor/links'));
                     Page::render('@user/manager-home.html', ['linksSideBar' => $linksSideBar]);
                 }else if($userType === 'professor'){
                     //$page->includeFileAtMain('pages/users/teachers.php');
@@ -68,10 +70,20 @@ class RestrictedArea {
                 Page::showErrorHttpPage($url);
             } else if ($url === "/usuario/$userType") {
                 if($userType === 'gestor'){
+                    // serviços disponíveis para os gestores, futuramente será pego do banco de dados.
+                    $linksSideBar = array((object) array('name' => 'Editar Perfil', 'url' => '/usuario/gestor/profile'),
+                        (object) array('name' => 'Editar Usuários', 'url' => '/usuario/gestor/users'),
+                        (object) array('name' => 'Editar Links', 'url' => '/usuario/gestor/links'));
+                    // verifica se o serviço solicitado existe, se sim retorna a página ou erro
                     if($subPage === "links"){
                         $links = SelectDB::getAllLinks();
-                        $linksSideBar = array((object) array('name' => 'Editar Links', 'url' => '/usuario/gestor/links'));
                         Page::render('@user/links.html', ['linksSideBar' => $linksSideBar, 'links' => $links]);
+                    }if($subPage === "users"){
+                        $links = SelectDB::getAllLinks();
+                        Page::render('@user/users.html', ['linksSideBar' => $linksSideBar, 'links' => $links]);
+                    }if($subPage === "profile"){
+                        $profileData = SelectDB::getUserProfileData(Authenticator::getUserID());
+                        Page::render('@user/profile.html', ['linksSideBar' => $linksSideBar, 'user' => $profileData]);
                     }else{
                         Page::showErrorHttpPage("404");
                         exit();

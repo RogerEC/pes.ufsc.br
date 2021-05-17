@@ -32,4 +32,15 @@ class SelectDB extends Database
         parent::disconnect();
         return $result;
     }
+
+    // retorna os dados do perfil do usuário
+    public static function getUserProfileData($userId)
+    {
+        $query = parent::connect()->prepare('SELECT a.`idUser`, a.`username`, a.`cpf`, a.`email`, b.`name`, b.`lastName`, b.`photoFile`  FROM `USER` a, `PERSONAL_INFORMATION` b WHERE a.`idUser` = :userId AND a.`idUser` = b.`idUser` LIMIT 1');
+        $query->bindValue(':userId', $userId, PDO::PARAM_STR);
+        $query->execute();
+        $result = $query->fetch(PDO::FETCH_OBJ);
+        parent::disconnect();
+        return $result;
+    }
 }

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% set includeRestrictedHeader = true %}
+{% set mainClass = 'pt-0 w-100 h-100' %}
+
+{% block head %}
+        <title>Usuários - Cursinho PES</title>
+        <meta name="keywords" content="Cursinho PES; UFSC; Curso pré-vestibular; Projeto Educação Solidária; Araranguá">
+        <meta name="description" content="Página de usuários do Cursinho PES">
+        <meta name="robots" content="none">
+{% endblock head %}
+
+{% block stylesheets %}
+        <link rel="stylesheet" type="text/css" href="/assets/css/restricted-area.css">
+        <link rel="stylesheet" type="text/css" href="/assets/css/no-scrollbar.css">
+{% endblock stylesheets %}
+
+{% block main %}
+{%          include '@restricted/sideBar.html' %}
+            <!-- Coluna do formulário -->
+            <div class="coluna-formulario container-fluid mt-5 pt-4">
+                <h4>Edite os dados do seu perfil abaixo.</h4>
+                <div class="box-link">
+                    <form method="POST" enctype="multipart/form-data" action="/usuario/gestor/profile/edit" class="w-100" id="formProfile">
+                        <input type="text" value="{{user.idUser}}" id="idUser" name="idUser" hidden>
+                        <div class="form-row">
+                            <div class="form-group col-5">
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Nome" value="{{user.name}}" maxlength="64" required disabled>
+                            </div>
+                            <div class="form-group col-5">
+                                <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Sobrenome" value="{{user.lastName}}" maxlength="64" required disabled>
+                            </div>
+                            <div class="form-group col-2">
+                                <button class="btn btn-bordo w-100 ml-2" id="CancelProfileEditButton" hidden>Cancelar</button>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-5">
+                                <input type="text" class="form-control" name="email" id="email" placeholder="E-mail" value="{{user.email}}" maxlength="64" required disabled>
+                            </div>
+                            <div class="form-group col-5">
+                                <div class="form-row">
+                                    <div class="form-group col-6">
+                                        <input type="text" class="form-control" name="cpf" id="" placeholder="CPF" value="{{"%s.%s.%s-%s"|format(user.cpf[0:3], user.cpf[3:3], user.cpf[6:3], user.cpf[9:])}}" maxlength="64" disabled>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <input type="text" class="form-control" name="user" id="" placeholder="Usuário" value="{{user.username}}" maxlength="64" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-2 mb-0">
+                                <button class="btn btn-verde w-100" id="editProfileButton">Editar</button>
+                                <button class="btn btn-verde w-100" id="saveProfileButton" hidden>Salvar</button>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="w-100 text-center">
+                                <input type="text" name="photoFile" value="{{user.photoFile}}" hidden>
+                                <img src="/assets/img/users/{{user.photoFile}}" height="200" alt="Imagem de perfil">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <input type="file" id="profileImage" name="profileImage" class="form-control-file" accept="image/png, image/jpeg" hidden>
+                        </div>
+                    </form>
+                </div>
+            </div><!-- /Coluna do formulário -->
+            <!-- Modal -->
+            <button type="button" data-toggle="modal" data-target="#staticBackdrop" id="modalDeleteConfirmation" hidden></button>
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-bordo-pes">
+                    <h5 class="modal-title" id="staticBackdropLabel">Você tem certeza?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="mt-3">Não será mais possível recuperar o link após a exclusão.</p>
+                    </div>
+                    <div class="modal-footer w-100">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-bordo" id="buttonDeleteConfirmation">Excluir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock main %}
+
+{% block scriptsJS %}
+            <script src="/assets/js/pages/restricted/users.js"></script>
+{% endblock scriptsJS %}

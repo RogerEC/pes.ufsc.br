@@ -56,4 +56,63 @@ class DataValidator
 
         return $data;
     }
+
+    // verifica se os dados de entrada na alteração de perfil são válidos
+    public static function validateUserProfileData($post)
+    {
+        $data = DataSanitizer::sanitizeUserProfileData($post);
+
+        $data->idUser = filter_var($data->idUser, FILTER_VALIDATE_INT);
+        if($data->idUser == false) {
+            $data->validationStatus = false;
+            $data->errorMessage[] = "Erro interno ao processar a solicitação";
+        }
+
+        if(empty($data->photoFile)){
+            $data->validationStatus = false;
+            $data->errorMessage[] = "Erro interno ao processar a solicitação.";
+        }
+
+        if(empty($data->name)){
+            $data->validationStatus = false;
+            $data->errorMessage[] = "Valor inválido no campo nome.";
+        }
+
+        if(empty($data->lastName)){
+            $data->validationStatus = false;
+            $data->errorMessage[] = "Valor inválido no campo sobrenome.";
+        }
+
+        $data->email = filter_var($data->email, FILTER_VALIDATE_EMAIL);
+        if($data->email === false) {
+            $data->validationStatus = false;
+            $data->errorMessage[] = "Valor inválido no campo e-mail.";
+        }
+
+        return $data;
+    }
+
+    // valida os dados de uma imagem
+    public static function validateImageFiles($file, $maxSize = 1048576)
+    {
+        $data['validationStatus'] = true;
+        //$data['errorMessage'] = '';
+        if($file != null  && $file['error'] === 0){
+            $name = $file['name'];
+            $data['extension'] = strtolower(end(explode('.', $name)));
+            if(array_search($data['extension'], ['jpg', 'jpeg', 'png']) === false){
+                $data['validationStatus'] = false;
+                $data['errorMessage'] = 'Extensão do arquivo incompatível';
+            }else if($file['size'] > $maxSize){
+                $data['validationStatus'] = false;
+                $data['errorMessage'] = 'Arquivo muito grande';
+            }
+        } else if ($file['error'] === 4) {
+            $data['validationStatus'] = true;
+        } else {
+            $data['validationStatus'] = false;
+        }
+
+        return (object)$data;
+    }
 }

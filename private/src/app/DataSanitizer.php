@@ -28,4 +28,21 @@ class DataSanitizer
 
         return (object)$data;
     }
+
+    // higieniza os dados de entrada do post para edição do perfil de usuário
+    public static function sanitizeUserProfileData($post)
+    {
+        $data = array();
+
+        $data['idUser'] = (isset($post['idUser']) && !empty($post['idUser']))? filter_var(trim($post['idUser']), FILTER_SANITIZE_NUMBER_INT):null;
+        $data['name'] = (isset($post['name']) && !empty($post['name']))? filter_var(trim($post['name']), FILTER_SANITIZE_STRING):null;
+        $data['lastName'] = (isset($post['lastName']) && !empty($post['lastName']))? filter_var(trim($post['lastName']), FILTER_SANITIZE_STRING):null;
+        $data['photoFile'] = (isset($post['photoFile']) && !empty($post['photoFile']))? filter_var(trim($post['photoFile']), FILTER_SANITIZE_STRING):null;
+        $data['email'] = (isset($post['email']) && !empty($post['email']))? filter_var(trim($post['email']), FILTER_SANITIZE_EMAIL):null;
+
+        $data['validationStatus'] = true;
+        $data['errorMessage'] = array();
+
+        return (object)$data;
+    }
 }

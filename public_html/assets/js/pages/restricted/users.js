@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
     var link = Object();
+    var user = Object();
     
     $(".editButton").on("click", function(event){
         event.preventDefault();
@@ -135,5 +136,61 @@ $(document).ready(function () {
             $(".buttonDelete").attr("disabled", false);
             $("#buttonAddLink").attr("disabled", false);
         });
+    });
+
+    $("#editProfileButton").on("click", function(event){
+        event.preventDefault();
+        // troca o botão de exibir para salvar
+        $(this).hide();
+        $("#saveProfileButton").attr("hidden", false);
+        $("#CancelProfileEditButton").attr("hidden", false);
+        // habilita campos para edição
+        $("#name").attr("disabled", false);
+        $("#lastName").attr("disabled", false);
+        $("#email").attr("disabled", false);
+        $("#profileImage").attr("hidden", false);
+        // faz cópia dos valores antes da alteração
+        user.name = $("#name").val();
+        user.lastName = $("#lastName").val();
+        user.email = $("#email").val();
+    });
+
+    $("#CancelProfileEditButton").on("click", function(event){
+        event.preventDefault();
+        // restaura os valores originais, caso alterados
+        $("#name").val(user.name);
+        $("#lastName").val(user.lastName);
+        $("#email").val(user.email);
+        $("#profileImage").val('');
+        $(this).attr("hidden", true);
+        $("#editProfileButton").show();
+        $("#saveProfileButton").attr("hidden", true);
+        // desabilita campos para edição
+        $("#name").attr("disabled", true);
+        $("#lastName").attr("disabled", true);
+        $("#email").attr("disabled", true);
+        $("#profileImage").attr("hidden", true);
+    });
+
+    $("#saveProfileButton").on("click", function(event){
+        if($("#name").val() === user.name){
+            if($("#lastName").val() === user.lastName){
+                if($("#email").val() === user.email){
+                    if($("#profileImage").val() === ''){
+                        event.preventDefault();
+                        // troca botão salvar para editar e ativa a edição dos demais
+                        $(this).attr("hidden", true);
+                        $("#editProfileButton").show();
+                        $("#CancelProfileEditButton").attr("hidden", true);
+                        // desabilita campos para edição
+                        $("#name").attr("disabled", true);
+                        $("#lastName").attr("disabled", true);
+                        $("#email").attr("disabled", true);
+                        $("#profileImage").attr("hidden", true);
+                        return;
+                    }
+                }
+            }
+        }
     });
 });

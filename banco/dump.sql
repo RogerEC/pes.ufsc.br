@@ -1,4 +1,4 @@
--- use avII_desenvweb; -- Banco de dados utilizado na disciplina CIT7598
+ use avII_desenvweb; -- Banco de dados utilizado na disciplina CIT7598
 -- Sanvando estados das variáveis do sistema antes da criação das tabelas
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -15,6 +15,7 @@
 
 -- Excluí as tabelas caso já existam
 DROP TABLE IF EXISTS `LINKS`;
+DROP TABLE IF EXISTS `PERSONAL_INFORMATION`;
 DROP TABLE IF EXISTS `USER`;
 DROP TABLE IF EXISTS `WEBSITE_SERVICES`;
 
@@ -80,6 +81,33 @@ INSERT INTO `USER` VALUES(11, '50802678017', 'membro.honorario@pes.ufsc.com.br',
 /*!40000 ALTER TABLE `USER` ENABLE KEYS */;
 UNLOCK TABLES;
 
+CREATE TABLE IF NOT EXISTS `PERSONAL_INFORMATION` (
+	`idPersonalInformation` INT NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(64) NOT NULL,
+	`lastName` VARCHAR(64) NOT NULL,
+    `photoFile` VARCHAR(64),
+    `idUser` int NOT NULL,
+	PRIMARY KEY (`idPersonalInformation`),
+    FOREIGN KEY (`idUser`) REFERENCES `USER`(`idUser`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `PERSONAL_INFORMATION` WRITE;
+/*!40000 ALTER TABLE `PERSONAL_INFORMATION` DISABLE KEYS */;
+INSERT INTO PERSONAL_INFORMATION VALUES (1, 'Roger', 'Eliodoro Condras', 'default.png', 1);
+INSERT INTO PERSONAL_INFORMATION VALUES (2, 'Aluno', 'Aluno', 'default.png', 2);
+INSERT INTO PERSONAL_INFORMATION VALUES (3, 'Gestor', 'Gestor', 'default.png', 3);
+INSERT INTO PERSONAL_INFORMATION VALUES (4, 'Professor', 'Professor', 'default.png', 4);
+INSERT INTO PERSONAL_INFORMATION VALUES (5, 'Gestor', 'Professor', 'default.png', 5);
+INSERT INTO PERSONAL_INFORMATION VALUES (6, 'Candidato', 'Aluno', 'default.png', 6);
+INSERT INTO PERSONAL_INFORMATION VALUES (7, 'Candidato', 'Gestor', 'default.png', 7);
+INSERT INTO PERSONAL_INFORMATION VALUES (8, 'Candidato', 'Professor', 'default.png', 8);
+INSERT INTO PERSONAL_INFORMATION VALUES (9, 'User', 'User', 'default.png', 9);
+INSERT INTO PERSONAL_INFORMATION VALUES (10, 'Admin', 'Admin', 'default.png', 10);
+INSERT INTO PERSONAL_INFORMATION VALUES (11, 'Membro', 'Honorário', 'default.png', 11);
+/*!40000 ALTER TABLE `PERSONAL_INFORMATION` ENABLE KEYS */;
+UNLOCK TABLES;
+
+-- tabela não utilizada na disciplina de Desenvolvimento de Sistemas Web
 CREATE TABLE IF NOT EXISTS `WEBSITE_SERVICES` (
 	`idWebsiteServices` INT NOT NULL AUTO_INCREMENT,
     `order` INT UNIQUE NOT NULL,
