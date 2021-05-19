@@ -52,7 +52,7 @@ class DataSanitizer
         $data = array();
 
         $data['idUser'] = (isset($post['idUser']) && !empty($post['idUser']))? filter_var(trim($post['idUser']), FILTER_SANITIZE_NUMBER_INT):null;
-        $data['cpf'] = (isset($post['cpf']) && !empty($post['cpf']))? filter_var(trim($post['cpf']), FILTER_SANITIZE_NUMBER_INT):null;
+        $data['cpf'] = (isset($post['cpf']) && !empty($post['cpf']))? filter_var(trim(preg_replace('/[^0-9]/', '', $post['cpf'])), FILTER_SANITIZE_NUMBER_INT):null;
         $data['name'] = (isset($post['name']) && !empty($post['name']))? filter_var(trim($post['name']), FILTER_SANITIZE_STRING):null;
         $data['lastName'] = (isset($post['lastName']) && !empty($post['lastName']))? filter_var(trim($post['lastName']), FILTER_SANITIZE_STRING):null;
         $data['username'] = (isset($post['username']) && !empty($post['username']))? filter_var(trim($post['username']), FILTER_SANITIZE_STRING):null;

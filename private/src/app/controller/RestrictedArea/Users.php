@@ -69,6 +69,24 @@ class Users extends RestrictedArea {
         }
     }
 
+    // realiza a edição dos dados do usuário
+    public function editUser()
+    {
+        $request = new Request;
+
+        $cleanData = DataValidator::validateUserData($request->all());
+
+        if($cleanData->validationStatus){
+            UpdateDB::updateUser($cleanData);
+            header('Location: /usuario/gestor/users');
+            exit();
+        }else {
+            echo "Erro ao editar os dados do usuário<br>";
+            echo var_dump($cleanData->errorMessage);
+            echo "<br><a href='/usuario/gestor/users'>Clique aqui </a> para voltar";
+        }
+    }
+
     public function deleteLinks()
     {
         $request = new Request;

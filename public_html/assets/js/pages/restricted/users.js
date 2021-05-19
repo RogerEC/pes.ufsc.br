@@ -236,5 +236,86 @@ $(document).ready(function () {
         $(".buttonDeleteUser").attr("disabled", false);
         $("#buttonAddUser").show();
         $("#newUserBox").hide();
+    });
+
+    $(".buttonEditUser").on("click", function(event){
+        event.preventDefault();
+        // troca o botão de exibir para salvar
+        $(".buttonEditUser").attr("disabled", true);
+        $(".buttonDeleteUser").attr("disabled", true);
+        $(this).hide();
+        $("#saveUserButton"+$(this).val()).attr("hidden", false);
+        $("#DeleteUserButton"+$(this).val()).hide();
+        $("#CancelUserEditButton"+$(this).val()).attr("hidden", false);
+        // habilita campos para edição
+        $("#name"+$(this).val()).attr("disabled", false);
+        $("#lastName"+$(this).val()).attr("disabled", false);
+        $("#userType"+$(this).val()).attr("disabled", false);
+        $("#email"+$(this).val()).attr("disabled", false);
+        $("#username"+$(this).val()).attr("disabled", false);
+        $("#cpf"+$(this).val()).attr("disabled", false);
+        // faz cópia dos valores antes da alteração
+        user.name = $("#name"+$(this).val()).val();
+        user.lastName = $("#lastName"+$(this).val()).val();
+        user.userType = $("#userType"+$(this).val()).val();
+        user.email = $("#email"+$(this).val()).val();
+        user.username = $("#username"+$(this).val()).val();
+        user.cpf = $("#cpf"+$(this).val()).val();
+    });
+
+    $(".cancelEditUserButton").on("click", function(event){
+        event.preventDefault();
+        // restaura os valores originais, caso alterados
+        $("#name"+$(this).val()).val(user.name);
+        $("#lastName"+$(this).val()).val(user.lastName);
+        $("#userType"+$(this).val()).val(user.userType);
+        $("#email"+$(this).val()).val(user.email);
+        $("#username"+$(this).val()).val(user.username);
+        $("#cpf"+$(this).val()).val(user.cpf);
+        //reativa botões
+        $(".buttonEditUser").attr("disabled", false);
+        $(".buttonDeleteUser").attr("disabled", false);
+        $(this).attr("hidden", true);
+        $("#editUserButton"+$(this).val()).show();
+        $("#DeleteUserButton"+$(this).val()).show();
+        $("#saveUserButton"+$(this).val()).attr("hidden", true);
+        // desabilita campos para edição
+        $("#name"+$(this).val()).attr("disabled", true);
+        $("#lastName"+$(this).val()).attr("disabled", true);
+        $("#userType"+$(this).val()).attr("disabled", true);
+        $("#email"+$(this).val()).attr("disabled", true);
+        $("#username"+$(this).val()).attr("disabled", true);
+        $("#cpf"+$(this).val()).attr("disabled", true);
+    });
+
+    $(".saveUserButton").on("click", function(event){
+        if($("#name"+$(this).val()).val() === user.name){
+            if($("#lastName"+$(this).val()).val() === user.lastName){
+                if($("#userType"+$(this).val()).val() === user.userType){
+                    if($("#email"+$(this).val()).val() === user.email){
+                        if($("#username"+$(this).val()).val() === user.username){
+                            if($("#cpf"+$(this).val()).val() === user.cpf){
+                                event.preventDefault();
+                                //reativa botões
+                                $(".buttonEditUser").attr("disabled", false);
+                                $(".buttonDeleteUser").attr("disabled", false);
+                                $(this).attr("hidden", true);
+                                $("#editUserButton"+$(this).val()).show();
+                                $("#DeleteUserButton"+$(this).val()).show();
+                                $("#CancelUserEditButton"+$(this).val()).attr("hidden", true);
+                                // desabilita campos para edição
+                                $("#name"+$(this).val()).attr("disabled", true);
+                                $("#lastName"+$(this).val()).attr("disabled", true);
+                                $("#userType"+$(this).val()).attr("disabled", true);
+                                $("#email"+$(this).val()).attr("disabled", true);
+                                $("#username"+$(this).val()).attr("disabled", true);
+                                $("#cpf"+$(this).val()).attr("disabled", true);
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     })
 });

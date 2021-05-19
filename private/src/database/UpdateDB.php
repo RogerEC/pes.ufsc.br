@@ -59,4 +59,30 @@ class UpdateDB extends Database
         parent::disconnect();
         return true;
     }
+
+    // realiza o update dos dados do perfil de usuário
+    public static function updateUser($data)
+    {
+        $query = parent::connect()->prepare('UPDATE `PERSONAL_INFORMATION` SET `name` = :new_name, `lastName` = :newLastName WHERE `idUser` = :userId');
+        $query->bindValue(':new_name', $data->name, PDO::PARAM_STR);
+        $query->bindValue(':newLastName', $data->lastName, PDO::PARAM_STR);
+        $query->bindValue(':userId', $data->idUser, PDO::PARAM_INT);
+        if($query->execute() == false){
+            parent::disconnect();
+            return 'ERROR-000';
+        }
+        parent::disconnect();
+        $query = parent::connect()->prepare('UPDATE `USER` SET `email` = :newEmail, `username` = :newUsername, `cpf` = :newCpf, `type` = :newUserType WHERE `idUser` = :userId');
+        $query->bindValue(':newEmail', $data->email, PDO::PARAM_STR);
+        $query->bindValue(':newUsername', $data->username, PDO::PARAM_STR);
+        $query->bindValue(':newCpf', $data->cpf, PDO::PARAM_STR);
+        $query->bindValue(':newUserType', $data->userType, PDO::PARAM_STR);
+        $query->bindValue(':userId', $data->idUser, PDO::PARAM_INT);
+        if($query->execute() == false){
+            parent::disconnect();
+            return 'ERROR-001';
+        }
+        parent::disconnect();
+        return true;
+    }
 }
