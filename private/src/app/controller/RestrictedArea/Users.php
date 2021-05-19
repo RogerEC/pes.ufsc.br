@@ -110,7 +110,12 @@ class Users extends RestrictedArea {
         $cleanIdLink = DataValidator::validateInt($request->__get('idUser'));
         
         if($cleanIdLink !== false){
+            
             if(DeleteDB::deleteUser($cleanIdLink) == 1){
+                // delata os arquivos de imagem associados ao usuário de existirem;
+                unlink(DIR_PUBLIC_HTML.'assets/img/users/'.strval($cleanIdLink).'.png');
+                unlink(DIR_PUBLIC_HTML.'assets/img/users/'.strval($cleanIdLink).'.jpg');
+                unlink(DIR_PUBLIC_HTML.'assets/img/users/'.strval($cleanIdLink).'.jpge');
                 echo true;
                 return;
             }
