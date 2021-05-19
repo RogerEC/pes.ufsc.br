@@ -17,4 +17,22 @@ class DeleteDB extends Database
         parent::disconnect();
         return $result;
     }
+
+    // deleta o usuário da base de dados
+    public static function deleteUser($userId)
+    {
+        $query = parent::connect()->prepare('DELETE FROM `PERSONAL_INFORMATION` WHERE `idUser` = :userId');
+        $query->bindValue(':userId', $userId, PDO::PARAM_INT);
+        if($query->execute() === true){
+            parent::disconnect();
+            $query2 = parent::connect()->prepare('DELETE FROM `USER` WHERE `idUser` = :userId');
+            $query2->bindValue(':userId', $userId, PDO::PARAM_INT);
+            $query2->execute();
+            $result = $query->rowCount();
+            parent::disconnect();
+            return $result;
+        };
+        parent::disconnect();
+        return 0;
+    }
 }

@@ -76,7 +76,7 @@ INSERT INTO `USER` VALUES(6, '67102128908', 'candidato.aluno@pes.ufsc.com.br', '
 INSERT INTO `USER` VALUES(7, '10261221981', 'candidato.gestor@pes.ufsc.com.br', 'candidato.gestor', '$2y$10$Z9fCb8nDl/CNsvuvbeF2NOe56J7mhPpxShQz1sS4a0gCcRZKPKA8O', 'CG', 1);
 INSERT INTO `USER` VALUES(8, '34337198962', 'candidato.professor@pes.ufsc.com.br', 'candidato.professor', '$2y$10$vebVkAHfpjIwEh51cSXa2uYpLQRnD7IUM3HSnvKTtc44zAdBih3FG', 'CP', 1);
 INSERT INTO `USER` VALUES(9, '57953543923', 'user@pes.ufsc.com.br', 'user', '$2y$10$G4M/HKuYuqim9cyvrscieea4869o8QmKqtM62vcd6VMkn1DCSzWGu', 'A', 1);
-INSERT INTO `USER` VALUES(10, '77065100936', 'admin@pes.ufsc.com.br', 'admin', '$2y$10$NJn5b9sFWUQpV1rAn3KgzOjTROhJi3NiMU4TvsxiPdjtuN02mUDjS', 'ADMIN', 1);
+INSERT INTO `USER` VALUES(10, '77065100936', 'admin@pes.ufsc.com.br', 'admin', '$2y$10$NJn5b9sFWUQpV1rAn3KgzOjTROhJi3NiMU4TvsxiPdjtuN02mUDjS', 'G', 1);
 INSERT INTO `USER` VALUES(11, '50802678017', 'membro.honorario@pes.ufsc.com.br', 'membro.honorario', '$2y$10$7uU5kRQjONNPG5MeCMgVwe0pgqQrspKVx2uhhgmvgUB5Fj7vzWSv6', 'MH', 1);
 /*!40000 ALTER TABLE `USER` ENABLE KEYS */;
 UNLOCK TABLES;

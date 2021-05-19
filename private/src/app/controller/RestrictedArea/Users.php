@@ -45,6 +45,30 @@ class Users extends RestrictedArea {
         }
     }
 
+    // sava os dados do post de alteração de links
+    public function saveUser()
+    {
+        $request = new Request;
+
+        $cleanData = DataValidator::validateUserData($request->all());
+
+        if($cleanData->validationStatus){
+            $result = InsertDB::addNewUser($cleanData);
+            if($result === true){
+                header('Location: /usuario/gestor/users');
+            }else{
+                echo "Erro no banco ao salvar dados<br>";
+                echo var_dump($result);
+                echo "<br><a href='/usuario/gestor/users'>Clique aqui </a> para voltar a página anterior.";
+            }
+            exit();
+        }else {
+            echo "Erro ao salvar dados<br>";
+            echo var_dump($cleanData->errorMessage);
+            echo "<br><a href='/usuario/gestor/users'>Clique aqui </a> para voltar a página anterior.";
+        }
+    }
+
     public function deleteLinks()
     {
         $request = new Request;
@@ -53,6 +77,22 @@ class Users extends RestrictedArea {
         
         if($cleanIdLink !== false){
             if(DeleteDB::deleteLink($cleanIdLink) == 1){
+                echo true;
+                return;
+            }
+        }
+        echo false;
+    }
+
+    // deleta o usuário da base de dados
+    public function deleteUser()
+    {
+        $request = new Request;
+
+        $cleanIdLink = DataValidator::validateInt($request->__get('idUser'));
+        
+        if($cleanIdLink !== false){
+            if(DeleteDB::deleteUser($cleanIdLink) == 1){
                 echo true;
                 return;
             }

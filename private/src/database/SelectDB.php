@@ -43,4 +43,15 @@ class SelectDB extends Database
         parent::disconnect();
         return $result;
     }
+
+    // retorna os dados de todos os usuários cadastrados
+    public static function getUsersData($userId)
+    {
+        $query = parent::connect()->prepare('SELECT a.`idUser`, a.`username`, a.`cpf`, a.`email`, a.`type`, b.`name`, b.`lastName`  FROM `USER` a, `PERSONAL_INFORMATION` b WHERE a.`idUser` = b.`idUser` AND NOT a.`type` = "ADMIN" AND NOT a.`idUser` = :userId');
+        $query->bindValue(':userId', $userId, PDO::PARAM_STR);
+        $query->execute();
+        $result = $query->fetchAll(PDO::FETCH_OBJ);
+        parent::disconnect();
+        return $result;
+    }
 }

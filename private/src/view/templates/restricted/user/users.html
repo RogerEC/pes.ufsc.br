@@ -19,107 +19,123 @@
 {%          include '@restricted/sideBar.html' %}
             <!-- Coluna do formulário -->
             <div class="coluna-formulario container-fluid mt-5 pt-4">
-                <h4>Edite os links ou adicione um novo abaixo.</h4>
-{%  set maxOrder = 0 %}
-{%  for link in links %}
-{%      if link.order > maxOrder %}
-{%        set maxOrder = link.order %}
-{%      endif %}
-{%      if link.status == 1 %}
-{%          set status = 'checked' %}
-{%      else %}
-{%          set status = '' %}
-{%      endif %}
-{%      if link.permanentLink == 1 %}
-{%          set permanentLink = 'checked' %}
-{%      else %}
-{%          set permanentLink = '' %}
-{%      endif %}
+                <h4>Edite os usuários ou adicione um novo abaixo.</h4>
+{%  for user in users %}
                 <div class="box-link">
-                    <form method="POST" action="/usuario/gestor/links/edit" class="w-100" id="formLink{{loop.index}}">
-                        <input type="text" value="{{link.idLinks}}" id="idLinks{{loop.index}}" name="idLinks" hidden>
-                        <input type="text" value="{{link.order}}" name="order" hidden>
+                    <form method="POST" action="/usuario/gestor/users/edit" class="w-100" id="formUsers{{loop.index}}">
+                        <input type="text" value="{{user.idUser}}" id="idUser{{loop.index}}" name="idUser" hidden>
                         <div class="form-row">
-                            <div class="form-group col-7">
-                                <input type="text" class="form-control" name="name" id="name{{loop.index}}" placeholder="Nome" value="{{link.name}}" maxlength="64" required disabled>
+                            <div class="form-group col-4">
+                                <label for="name{{loop.index}}"><b>Nome:</b></label>
+                                <input type="text" class="form-control" name="name" id="name{{loop.index}}" placeholder="Nome" value="{{user.name}}" maxlength="64" required disabled>
                             </div>
-                            <div class="form-group form-row col-3">
-                                <div class="form-group col-6">
-                                    <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="status{{loop.index}}" name="status" {{status}} disabled>
-                                    <label class="custom-control-label" for="status{{loop.index}}">Ativo</label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-6">
-                                    <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input permanentLink" id="permanentLink{{loop.index}}" name="permanentLink" value="{{loop.index}}" {{permanentLink}} disabled>
-                                    <label class="custom-control-label" for="permanentLink{{loop.index}}">Permanente</label>
-                                    </div>
-                                </div>
+                            <div class="form-group col-4">
+                                <label for="lastName{{loop.index}}"><b>Sobrenome:</b></label>
+                                <input type="text" class="form-control" name="lastName" id="lastName{{loop.index}}" placeholder="Sobrenome" value="{{user.lastName}}" maxlength="64" required disabled>
                             </div>
                             <div class="form-group col-2">
-                                <button class="btn btn-bordo w-100 ml-2 buttonDelete" id="buttonDelete{{loop.index}}" value="{{loop.index}}">Excluir</button>
-                                <button class="btn btn-bordo w-100 ml-2 buttonCancel" id="buttonCancel{{loop.index}}" value="{{loop.index}}" hidden>Cancelar</button>
+                                <label for="userType{{loop.index}}"><b>Tipo de usuário:</b></label>
+                                <select class="form-control" name="userType" id="userType{{loop.index}}" disabled>
+                                    <option value="">Selecione...</option>
+                                    <option value="A" {{ (user.type == 'A')? 'selected':'' }}>Aluno</option>
+                                    <option value="G" {{ (user.type == 'G')? 'selected':'' }}>Gestor</option>
+                                    <option value="P" {{ (user.type == 'P')? 'selected':'' }}>Professor</option>
+                                    <option value="GP" {{ (user.type == 'GP')? 'selected':'' }}>Gestor-Professor</option>
+                                    <option value="CA" {{ (user.type == 'CA')? 'selected':'' }}>Candidato-Aluno</option>
+                                    <option value="CG" {{ (user.type == 'CG')? 'selected':'' }}>Candidato-Gestor</option>
+                                    <option value="CP" {{ (user.type == 'CP')? 'selected':'' }}>Candidato-Professor</option>
+                                    <option value="MH" {{ (user.type == 'MH')? 'selected':'' }}>Membro-Honorário</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-2 mt-2">
+                                <button class="btn btn-bordo w-100 ml-1 mt-4 buttonDeleteUser" id="DeleteUserButton{{loop.index}}" value="{{loop.index}}">Excluir</button>
+                                <button class="btn btn-bordo w-100 ml-1 mt-4 cancelEditUserButton" id="CancelUserEditButton{{loop.index}}" value="{{loop.index}}" hidden>Cancelar</button>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-7 mb-0">
-                                <input type="url" class="form-control" id="url{{loop.index}}" name="url" placeholder="Url" value="{{link.url}}" maxlength="2048" required disabled>
+                            <div class="form-group col-4 mb-1">
+                                <label for="email{{loop.index}}"><b>E-mail:</b></label>
+                                <input type="email" class="form-control" name="email" id="email{{loop.index}}" placeholder="E-mail" value="{{user.email}}" maxlength="64" required disabled>
                             </div>
-                            <div class="form-group col-3 mb-0">
-                                <input type="datetime-local" class="form-control" id="expirationDatetime{{loop.index}}" name="expirationDatetime" value="{{link.expirationDatetime}}" required disabled>
+                            <div class="form-group col-6 mb-0">
+                                <div class="form-row">
+                                    <div class="form-group col-8 mb-1">
+                                        <label for="username{{loop.index}}"><b>Nome de usuário:</b></label>
+                                        <input type="text" class="form-control" name="username" id="username{{loop.index}}" placeholder="E-mail" value="{{user.username}}" maxlength="64" required disabled>
+                                    </div>
+                                    <div class="form-group col-4 mb-1">
+                                        <label for="cpf{{loop.index}}"><b>CPF:</b></label>
+                                        <input type="text" class="form-control" name="cpf" id="cpf{{loop.index}}" placeholder="E-mail" value="{{"%s.%s.%s-%s"|format(user.cpf[0:3], user.cpf[3:3], user.cpf[6:3], user.cpf[9:])}}" maxlength="64" required disabled>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group col-2 mb-0">
-                                <button class="btn btn-verde w-100 editButton" id="editButton{{loop.index}}" value="{{loop.index}}">Editar</button>
-                                <button class="btn btn-verde w-100 saveButton" id="saveButton{{loop.index}}" value="{{loop.index}}" hidden>Salvar</button>
+                            <div class="form-group col-2 mb-1 mt-2">
+                                <button class="btn btn-verde w-100 ml-1 mt-4 buttonEditUser" id="editUserButton{{loop.index}}" value="{{loop.index}}">Editar</button>
+                                <button class="btn btn-verde w-100 ml-1 mt-4 saveUserButton" id="saveUserButton{{loop.index}}" value="{{loop.index}}" hidden>Salvar</button>
                             </div>
                         </div>
                     </form>
                 </div>
 {% endfor %}
-                <div class="box-link ocultar" id="newLinkBox">
-                    <form method="POST" action="/usuario/gestor/links/save" class="w-100" id="formNewLink">
-                        <input type="text" value="1" name="idLinks" hidden>
-                        <input type="text" value="{{ maxOrder + 1 }}" name="order" hidden>
+                <div class="box-link ocultar" id="newUserBox">
+                    <form method="POST" action="/usuario/gestor/users/save" class="w-100" id="formNewUser">
+                        <input type="text" value="1" id="newIdUser" name="idUser" hidden>
                         <div class="form-row">
-                            <div class="form-group col-7">
+                            <div class="form-group col-4">
+                                <label for="newName"><b>Nome:</b></label>
                                 <input type="text" class="form-control" name="name" id="newName" placeholder="Nome" maxlength="64" required>
                             </div>
-                            <div class="form-group col-2">
-                                <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="newStatus" name="status">
-                                <label class="custom-control-label" for="newStatus">Ativo</label>
-                                </div>
+                            <div class="form-group col-4">
+                                <label for="newLastName"><b>Sobrenome:</b></label>
+                                <input type="text" class="form-control" name="lastName" id="newLastName" placeholder="Sobrenome" maxlength="64" required>
                             </div>
                             <div class="form-group col-2">
-                                <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="newPermanentLink" name="permanentLink">
-                                <label class="custom-control-label" for="newPermanentLink">Permanente</label>
-                                </div>
+                                <label for="newUserType"><b>Tipo de usuário:</b></label>
+                                <select class="form-control" name="userType" id="newUserType">
+                                    <option value="" selected>Selecione...</option>
+                                    <option value="A">Aluno</option>
+                                    <option value="G">Gestor</option>
+                                    <option value="P">Professor</option>
+                                    <option value="GP">Gestor-Professor</option>
+                                    <option value="CA">Candidato-Aluno</option>
+                                    <option value="CG">Candidato-Gestor</option>
+                                    <option value="CP">Candidato-Professor</option>
+                                    <option value="MH">Membro-Honorário</option>
+                                </select>
                             </div>
-                            <div class="form-group col-1">
-                                <button class="btn btn-bordo w-100" id="buttonDeleteNewLink">Excluir</button>
+                            <div class="form-group col-2 mt-2">
+                                <button class="btn btn-bordo w-100 ml-1 mt-4" id="buttonCancelAddUser">Cancelar</button>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-7 mb-0">
-                                <input type="url" class="form-control" id="newUrl" name="url" placeholder="Url" maxlength="2048" required>
+                            <div class="form-group col-4 mb-1">
+                                <label for="newEmail"><b>E-mail:</b></label>
+                                <input type="email" class="form-control" name="email" id="newEmail" placeholder="E-mail" maxlength="64" required>
                             </div>
-                            <div class="form-group col-3 mb-0">
-                                <input type="datetime-local" class="form-control" id="newExpirationDatetime" name="expirationDatetime" required>
+                            <div class="form-group col-6 mb-0">
+                                <div class="form-row">
+                                    <div class="form-group col-8 mb-1">
+                                        <label for="newUsername"><b>Nome de usuário:</b></label>
+                                        <input type="text" class="form-control" name="username" id="newUsername" placeholder="E-mail" maxlength="64" required>
+                                    </div>
+                                    <div class="form-group col-4 mb-1">
+                                        <label for="newCpf"><b>CPF:</b></label>
+                                        <input type="text" class="form-control" name="cpf" id="newCcpf" placeholder="E-mail" maxlength="14" required>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group col-2 mb-0">
-                                <button class="btn btn-verde w-100" id="buttonSaveNewLink">Salvar</button>
+                            <div class="form-group col-2 mb-1 mt-2">
+                                <button class="btn btn-verde w-100 ml-1 mt-4" id="saveNewUserButton">Salvar</button>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="w-100 mt-3 mb-3 text-center">
-                    <button class="btn btn-verde" id="buttonAddLink">Adicionar Link</button>
+                    <button class="btn btn-verde" id="buttonAddUser">Adicionar Usuário</button>
                 </div>
             </div><!-- /Coluna do formulário -->
             <!-- Modal -->
-            <button type="button" data-toggle="modal" data-target="#staticBackdrop" id="modalDeleteConfirmation" hidden></button>
+            <button type="button" data-toggle="modal" data-target="#staticBackdrop" id="modalDeleteUserConfirmation" hidden></button>
         <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div class="modal-content">
@@ -130,11 +146,11 @@
                     </button>
                     </div>
                     <div class="modal-body">
-                        <p class="mt-3">Não será mais possível recuperar o link após a exclusão.</p>
+                        <p class="mt-3">Não será mais possível recuperar o usuário após a exclusão.</p>
                     </div>
                     <div class="modal-footer w-100">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-bordo" id="buttonDeleteConfirmation">Excluir</button>
+                        <button type="button" class="btn btn-bordo" id="buttonDeleteUserConfirmation">Excluir</button>
                     </div>
                 </div>
             </div>

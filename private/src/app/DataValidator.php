@@ -92,7 +92,53 @@ class DataValidator
         return $data;
     }
 
-    // valida os dados de uma imagem
+    // verifica se os dados de entrada na alteração de perfil são válidos
+    public static function validateUserData($post)
+    {
+        $data = DataSanitizer::sanitizeUserData($post);
+
+        $data->idUser = filter_var($data->idUser, FILTER_VALIDATE_INT);
+        if($data->idUser == false) {
+            $data->validationStatus = false;
+            $data->errorMessage[] = "Erro interno ao processar a solicitação";
+        }
+
+        // verificação parcial do cpf, verifica o formato, não a validade do número.
+        if(empty($data->cpf) || strlen($data->cpf) !== 11){
+            $data->validationStatus = false;
+            $data->errorMessage[] = "Número de cpf inválido.";
+        }
+
+        if(empty($data->name)){
+            $data->validationStatus = false;
+            $data->errorMessage[] = "Valor inválido no campo nome.";
+        }
+
+        if(empty($data->username)){
+            $data->validationStatus = false;
+            $data->errorMessage[] = "Valor inválido no campo usuário.";
+        }
+
+        if(empty($data->lastName)){
+            $data->validationStatus = false;
+            $data->errorMessage[] = "Valor inválido no campo sobrenome.";
+        }
+
+        if(array_search($data->userType, ['A', 'G', 'P', 'GP', 'CA', 'CG', 'CP', 'MH', 'ADMIN']) === false){
+            $data->validationStatus = false;
+            $data->errorMessage[] = "Tipo de usuário não reconhecido";
+        }
+
+        $data->email = filter_var($data->email, FILTER_VALIDATE_EMAIL);
+        if($data->email === false) {
+            $data->validationStatus = false;
+            $data->errorMessage[] = "Valor inválido no campo e-mail.";
+        }
+
+        return $data;
+    }
+
+    // valida os dados de uma imagem, tamanho máximo padrão 1MBi
     public static function validateImageFiles($file, $maxSize = 1048576)
     {
         $data['validationStatus'] = true;

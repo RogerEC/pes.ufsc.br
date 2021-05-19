@@ -23,4 +23,32 @@ class InsertDB extends Database
         parent::disconnect();
         return $result;
     }
+
+    // adição de um novo usuário
+    public static function addNewUser($data)
+    {
+        $connection = parent::connect();
+        $query = $connection->prepare("INSERT INTO USER(`cpf`, `email`, `username`, `type`, `status`, `passwordHash`) VALUES (:cpf, :email, :username, :type, 1, '$2y$10$7uU5kRQjONNPG5MeCMgVwe0pgqQrspKVx2uhhgmvgUB5Fj7vzWSv6')");
+        $query->bindValue(':cpf', $data->cpf, PDO::PARAM_STR);
+        $query->bindValue(':email', $data->email, PDO::PARAM_STR);
+        $query->bindValue(':username', $data->username, PDO::PARAM_STR);
+        $query->bindValue(':type', $data->userType, PDO::PARAM_STR);
+        if($query->execute() == true){
+
+            $userId = $connection->lastInsertId();
+            $query = $connection->prepare("INSERT INTO PERSONAL_INFORMATION(`name`, `lastName`, `idUser`, `photoFile`) VALUES (:name, :lastName, :idUser, 'default.png')");
+            $query->bindValue(':name', $data->name, PDO::PARAM_STR);
+            $query->bindValue(':lastName', $data->lastName, PDO::PARAM_STR);
+            $query->bindValue(':idUser', $userId, PDO::PARAM_INT);
+            if($query->execute() == true){
+                parent::disconnect();
+                return true;
+            }else{
+                return $connection->errorCode();
+                parent::disconnect();
+            }
+        }
+        return $connection->errorCode();
+        parent::disconnect();
+    }
 }

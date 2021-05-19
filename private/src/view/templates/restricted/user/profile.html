@@ -21,7 +21,7 @@
             <div class="coluna-formulario container-fluid mt-5 pt-4">
                 <h4>Edite os dados do seu perfil abaixo.</h4>
                 <div class="box-link">
-                    <form method="POST" enctype="multipart/form-data" action="/usuario/gestor/profile/edit" class="w-100" id="formProfile">
+                    <form method="POST" enctype="multipart/form-data" action="/usuario/{{userType}}/profile/edit" class="w-100" id="formProfile">
                         <input type="text" value="{{user.idUser}}" id="idUser" name="idUser" hidden>
                         <div class="form-row">
                             <div class="form-group col-5">

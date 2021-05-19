@@ -193,4 +193,48 @@ $(document).ready(function () {
             }
         }
     });
+
+    $(".buttonDeleteUser").on("click", function(event){
+        event.preventDefault();
+        $("#buttonDeleteUserConfirmation").val($("#idUser"+$(this).val()).val());
+        $("#modalDeleteUserConfirmation").click();
+        return;
+        
+    });
+
+    $("#buttonDeleteUserConfirmation").on("click", function(event){
+        event.preventDefault();
+        $(".buttonEditUser").attr("disabled", true);
+        $(".buttonDeleteUser").attr("disabled", true);
+        $("#buttonAddUser").attr("disabled", true);
+        $.post('/usuario/gestor/users/delete', { idUser: $(this).val()}).done(function(){
+            window.location.reload();
+        }).fail(function(){
+            alert("Erro ao tentar realizar a exclusão do usuário.");
+            $(".buttonEditUser").attr("disabled", false);
+            $(".buttonDeleteUser").attr("disabled", false);
+            $("#buttonAddUser").attr("disabled", false);
+        });
+    });
+
+    $("#buttonAddUser").on("click", function(){
+        $(".buttonEditUser").attr("disabled", true);
+        $(".buttonDeleteUser").attr("disabled", true);
+        $(this).hide();
+        $("#newName").val('');
+        $("#newLastName").val('');
+        $("#newUserType").val('');
+        $("#newEmail").val('');
+        $("#newUsername").val('');
+        $("#newCpf").val('');
+        $("#newUserBox").show();
+    });
+
+    $("#buttonCancelAddUser").on("click", function(event){
+        event.preventDefault();
+        $(".buttonEditUser").attr("disabled", false);
+        $(".buttonDeleteUser").attr("disabled", false);
+        $("#buttonAddUser").show();
+        $("#newUserBox").hide();
+    })
 });

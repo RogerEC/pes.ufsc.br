@@ -37,11 +37,11 @@ class RestrictedArea {
                                     (object) array('name' => 'Editar Links', 'url' => '/usuario/gestor/links'));
                     Page::render('@user/manager-home.html', ['linksSideBar' => $linksSideBar]);
                 }else if($userType === 'professor'){
-                    //$page->includeFileAtMain('pages/users/teachers.php');
-                    //$page->renderPage();
+                    $linksSideBar = array((object) array('name' => 'Editar Perfil', 'url' => '/usuario/professor/profile'));
+                    Page::render('@user/teacher-home.html', ['linksSideBar' => $linksSideBar]);
                 }else if($userType === 'aluno'){
-                    //$page->includeFileAtMain('pages/users/students.php');
-                    //$page->renderPage();
+                    $linksSideBar = array((object) array('name' => 'Editar Perfil', 'url' => '/usuario/aluno/profile'));
+                    Page::render('@user/student-home.html', ['linksSideBar' => $linksSideBar]);
                 }else{
                     // membro honorário page
                 }
@@ -69,31 +69,56 @@ class RestrictedArea {
             if ($url === "401") {
                 Page::showErrorHttpPage($url);
             } else if ($url === "/usuario/$userType") {
+                
+                // carrega os links da barra lateral
                 if($userType === 'gestor'){
                     // serviços disponíveis para os gestores, futuramente será pego do banco de dados.
                     $linksSideBar = array((object) array('name' => 'Editar Perfil', 'url' => '/usuario/gestor/profile'),
                         (object) array('name' => 'Editar Usuários', 'url' => '/usuario/gestor/users'),
                         (object) array('name' => 'Editar Links', 'url' => '/usuario/gestor/links'));
+                }else if($userType === 'professor'){
+                    // serviços disponíveis para professores
+                    $linksSideBar = array((object) array('name' => 'Editar Perfil', 'url' => '/usuario/aluno/profile'));
+                }else {
+                    // serviços disponíveis para alunos
+                    $linksSideBar = array((object) array('name' => 'Editar Perfil', 'url' => '/usuario/aluno/profile'));
+                }
+                
+                // verifica a lista de serviços gerais, para todos os usuários
+                if($subPage === "profile"){
+                    
+                    $profileData = SelectDB::getUserProfileData(Authenticator::getUserID());
+                    Page::render('@user/profile.html', ['linksSideBar' => $linksSideBar, 'user' => $profileData, 'userType' => $userType]);
+                
+                }else if($userType === 'gestor'){
+                    
                     // verifica se o serviço solicitado existe, se sim retorna a página ou erro
                     if($subPage === "links"){
                         $links = SelectDB::getAllLinks();
                         Page::render('@user/links.html', ['linksSideBar' => $linksSideBar, 'links' => $links]);
                     }if($subPage === "users"){
-                        $links = SelectDB::getAllLinks();
-                        Page::render('@user/users.html', ['linksSideBar' => $linksSideBar, 'links' => $links]);
-                    }if($subPage === "profile"){
-                        $profileData = SelectDB::getUserProfileData(Authenticator::getUserID());
-                        Page::render('@user/profile.html', ['linksSideBar' => $linksSideBar, 'user' => $profileData]);
+                        $users = SelectDB::getUsersData(Authenticator::getUserID());
+                        Page::render('@user/users.html', ['linksSideBar' => $linksSideBar, 'users' => $users]);
                     }else{
                         Page::showErrorHttpPage("404");
                         exit();
                     }
-                }else{
-                    echo "Sub página <b>". $subPage ."</b> do usuário tipo ".$userType;
-                    echo "<br><a href='/'>Voltar ao início</a>";
+                }else if($userType === 'aluno'){
+                    // serviços específicos para alunos
+                    Page::showErrorHttpPage("404");
+                    exit();
+                } else if($userType === 'aluno'){
+                    // serviços específicos para professores
+                    Page::showErrorHttpPage("404");
+                    exit();
+                } else {
+                    // não localizou nada
+                    Page::showErrorHttpPage("404");
+                    exit();
                 }
             } else {
-                header("Location: $url");
+                // retorna para o usuário correto caso esteja tentando acessar o usuário errado
+                header("Location: $url/$subPage");
                 exit();
             }
         } else {

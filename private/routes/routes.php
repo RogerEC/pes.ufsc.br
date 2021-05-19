@@ -61,4 +61,10 @@ Route::get('/', 'PublicArea@showHomePage');
 
     Route::post(['set' => '/usuario/{userType}/profile/edit', 'namespace' => 'App\\Controller\\RestrictedArea\\'], 'Users@editProfile');
 
+    Route::post(['set' => '/usuario/gestor/users/delete', 'namespace' => 'App\\Controller\\RestrictedArea\\'], 'Users@deleteUser');
+    
+    Route::post(['set' => '/usuario/gestor/users/save', 'namespace' => 'App\\Controller\\RestrictedArea\\'], 'Users@saveUser');
+
+    Route::post(['set' => '/usuario/gestor/users/edit', 'namespace' => 'App\\Controller\\RestrictedArea\\'], 'Users@editUser');
+
     //Route::get('', '');
